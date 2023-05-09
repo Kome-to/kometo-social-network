@@ -1,0 +1,41 @@
+@import '../../common/sass/variables';
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 56px;
+  background: $color-white;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
+
+  &__link {
+    a {
+      font-family: 'Proxima Nova';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: $color-primary;
+    }
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__back {
+    span {
+      font-weight: bold;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__projectName {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}

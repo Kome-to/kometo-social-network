@@ -1,0 +1,70 @@
+@import '../../common/sass/variables';
+
+.login {
+  display: flex;
+  justify-content: center;
+
+  &__card {
+    margin-top: 160px;
+    width: 400px;
+    padding: var(--sp-7);
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--sp-3);
+  }
+
+  &__container {
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: var(--sp-5);
+  }
+
+  &__title {
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: $color-primary;
+    margin-top: var(--sp-5);
+    margin-bottom: var(--sp-7);
+
+    span {
+      color: #000000;
+    }
+  }
+
+  &__input {
+    margin-bottom: var(--sp-6);
+  }
+
+  &__link {
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    color: $color-primary;
+    margin-top: var(--sp-5);
+    margin-bottom: var(--sp-10);
+    display: flex;
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: $breakpoint-sm) {
+    &__card {
+      width: 100%;
+      padding: var(--sp-7);
+      margin-left: var(--sp-6);
+      margin-right: var(--sp-6);
+    }
+  }
+}

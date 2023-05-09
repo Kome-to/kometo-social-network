@@ -1,0 +1,60 @@
+@import '../../common/sass/variables';
+
+.text-input__input {
+    $root: &;
+    font-size: 14px;
+    line-height: 19px;
+    width: 100%;
+    height: 36px;
+    color: $color-black;
+    border: 1px solid $color-grey-l20;
+    background-color: transparent;
+    border-radius: var(--sp-2);
+    padding: 0 var(--sp-3);
+
+    &::-ms-clear {
+        display: none;
+    }
+    &:focus-visible {
+        outline: none;
+    }
+
+    &::placeholder {
+        color: $color-grey;
+        opacity: 1;
+        transition: opacity ease-in-out 0.25s;
+    }
+    &:focus {
+        box-shadow: $drop-shadow;
+    }
+
+    &[disabled] {
+        background: $color-grey-l95;
+    }
+
+    &--has-error {
+        border-color: $color-red;
+        color: $color-red;
+    }
+    &--has-label {
+        margin-top: var(--sp-2);
+    }
+
+    &--textarea {
+        padding: var(--sp-3);
+        resize: none;
+        font-family: $font-family;
+    }
+}
+
+.text-input {
+    margin-bottom: var(--sp-5);
+    &__error {
+        color: $color-red-l20;
+        font-size: 12px;
+    }
+    &__label {
+       color: $color-black;
+       font-weight: bold;
+    }
+}

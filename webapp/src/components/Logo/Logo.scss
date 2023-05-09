@@ -1,0 +1,22 @@
+.logo {
+  $root: &;
+
+  &--lockup {
+    &#{$root}--md {
+      width: 84px;
+      height: 21px;
+    }
+  }
+
+  &--mark {
+    &#{$root}--md {
+      width: 64px;
+      height: 42px;
+    }
+
+    &#{$root}--sm {
+      width: 32px;
+      height: 20px;
+    }
+  }
+}

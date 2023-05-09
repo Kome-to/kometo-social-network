@@ -1,0 +1,48 @@
+@import '../../../../common/sass/variables';
+
+.user-dropdown {
+  $root: &;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  &__wrapper {
+    &:hover {
+      #{$root}__content {
+        display: block;
+      }
+    }
+  }
+
+  &__img {
+    cursor: pointer;
+    height: 36px;
+  }
+
+  &__content {
+    display: none;
+    position: absolute;
+    right: 0px;
+    min-width: 160px;
+    background: #ffffff;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1;
+
+    a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+
+  &__email {
+    border-bottom: 1px solid #f1f2f5;
+  }
+}

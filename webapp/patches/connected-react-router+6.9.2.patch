@@ -1,0 +1,12 @@
+diff --git a/node_modules/connected-react-router/index.d.ts b/node_modules/connected-react-router/index.d.ts
+index f2e7bcc..79ed1ff 100644
+--- a/node_modules/connected-react-router/index.d.ts
++++ b/node_modules/connected-react-router/index.d.ts
+@@ -17,6 +17,7 @@ declare module 'connected-react-router' {
+   type PathParam = Parameters<typeof matchPath>[1];
+ 
+   interface ConnectedRouterProps<S = LocationState> {
++    children: React.ReactNode;
+     history: History<S>;
+     context?: React.Context<ReactReduxContextValue>;
+     noInitialPop?: boolean;

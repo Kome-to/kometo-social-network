@@ -1,0 +1,23 @@
+@import '../../common/sass/variables';
+
+.date-picker {
+  position: relative;
+  background: $color-white;
+  box-shadow: $drop-shadow;
+  border-radius: 2px;
+  border: none;
+  font-family: $font-family;
+}
+
+.react-datepicker {
+  &__header {
+    border-bottom: none;
+    background-color: $color-ghost-white;
+  }
+
+  &__day {
+    &--selected {
+      background-color: $color-primary;
+    }
+  }
+}

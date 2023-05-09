@@ -1,0 +1,82 @@
+@import '../../common/sass/variables';
+
+.score-board {
+  $root: &;
+
+  &__view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__desc-1 {
+    margin-left: var(--sp-3);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  &__desc-2 {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 19px;
+    text-align: center;
+  }
+
+  &--poor {
+    #{$root}__point {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 19px;
+      color: #CC3427;
+      padding: var(--sp-3);
+      background: #F6D5D2;
+      border-radius: 50%;
+      border: 3px solid #CC3427;
+    }
+
+    #{$root}__desc-2 {
+      span {
+        color: #CC3427;
+      }
+    }
+  }
+
+  &--good {
+    #{$root}__point {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 19px;
+      color: $color-primary;
+      padding: var(--sp-3);
+      background: #dfefd4;
+      border-radius: 50%;
+      border: 3px solid #65a339;
+    }
+
+    #{$root}__desc-2 {
+      span {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &--na {
+    #{$root}__point {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 19px;
+      color: #BBC0D1;
+      padding: var(--sp-3);
+      background: #F1F2F5;
+      border-radius: 50%;
+      border: 3px solid #BBC0D1;
+    }
+
+    #{$root}__desc-2 {
+      span {
+        color: #BBC0D1;
+      }
+    }
+  }
+}

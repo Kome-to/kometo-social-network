@@ -1,0 +1,19 @@
+/**
+    react-virtualized table css override
+ */
+.ReactVirtualized__Table__headerRow {
+  background: #f6f8fe;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 32px;
+  color: #8b94b1;
+  text-transform: capitalize;
+}
+
+.ReactVirtualized__Table__row {
+  border-bottom: 1px solid #f1f2f5;
+  &:last-child {
+    border-bottom: none;
+  }
+}
