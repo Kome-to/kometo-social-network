@@ -4,6 +4,13 @@ import classNames from 'classnames';
 import Dashboard from './icons/dashboard.svg';
 import Close from './icons/close.svg';
 import Check from './icons/check.svg';
+import Home from './icons/home.svg';
+import Story from './icons/story.svg';
+import Live from './icons/live.svg';
+import Shop from './icons/shop.svg';
+import User from './icons/user.svg';
+import Chat from './icons/chat.svg';
+import Notify from './icons/notify.svg';
 
 import './Icon.scss';
 
@@ -11,6 +18,13 @@ export const ICONS = {
   DASHBOARD: Dashboard.id,
   CLOSE: Close.id,
   CHECK: Check.id,
+  HOME: Home.id,
+  STORY: Story.id,
+  LIVE: Live.id,
+  SHOP: Shop.id,
+  USER: User.id,
+  NOTIFY: Notify.id,
+  CHAT: Chat.id,
 };
 
 export interface IconProps {

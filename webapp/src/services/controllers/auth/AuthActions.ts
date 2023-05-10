@@ -1,6 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { LoginForm } from '../../../views/login/LoginView';
-import { SignUpForm } from '../../../views/sign-up/SignUpView';
+import { LoginForm, SignUpForm } from '../../../views/login/LoginView';
 
 export const authActions = {
   login: createAction<LoginForm>('auth/LOGIN'),

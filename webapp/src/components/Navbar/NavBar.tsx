@@ -1,23 +1,20 @@
 import classNames from 'classnames';
-import React, { useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { routes } from '../../common/utils/routes';
-import { storage } from '../../common/utils/storage';
-import Button, { ButtonIconPlacement, ButtonType } from '../Button/Button';
-import { ICONS, IconSize } from '../Icon/Icon';
-import Logo, { LogoType } from '../Logo/Logo';
-import UserDropdown from './components/UserDropdown/UserDropdown';
+import React, { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
+import { FastField, Form, Formik } from 'formik';
+import { routes } from '../../common/utils/routes';
+import { FormikTextInput } from '../TextInput/TextInput';
 import './NavBar.scss';
+import Icon, { ICONS, IconSize } from '../Icon/Icon';
 
 const NavBar = (): React.ReactElement => {
   const { pathname } = useLocation();
-  const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const hiddenNavbarRouter = [routes.LOGIN, routes.SIGN_UP];
 
   const link = useMemo(() => {
     switch (pathname) {
@@ -34,9 +31,58 @@ const NavBar = (): React.ReactElement => {
 
   const classes = classNames('navbar', {});
 
-  return (
+  return !hiddenNavbarRouter.includes(pathname) ? (
     <nav className={classes}>
-      {storage.isLoggedIn ? (
+      <div className="navbar__logo">
+        <div>Kometo</div>
+      </div>
+      <div className="navbar__main">
+        <div className="navbar__sub">
+          <div className="navbar__search">
+            <Formik initialValues={{ searchValue: '' }} onSubmit={() => {}} validateOnBlur validateOnChange>
+              {() => (
+                <Form className="login__form">
+                  <FastField wrapperClass="login__input" component={FormikTextInput} name="email" placeholder="Search" />
+                </Form>
+              )}
+            </Formik>
+          </div>
+          <div className="navbar__feature">
+            <div className="navbar__icon-wrapper">
+              <Icon className="navbar__icon" name={ICONS.HOME} />
+            </div>
+            <div className="navbar__icon-wrapper">
+              <Icon className="navbar__icon" name={ICONS.STORY} />
+            </div>
+            <div className="navbar__icon-wrapper">
+              <Icon className="navbar__icon" name={ICONS.LIVE} />
+            </div>
+            <div className="navbar__icon-wrapper">
+              <Icon className="navbar__icon" name={ICONS.USER} />
+            </div>
+            <div className="navbar__icon-wrapper">
+              <Icon className="navbar__icon" name={ICONS.SHOP} />
+            </div>
+          </div>
+        </div>
+        <div className="navbar__panel">
+          <div className="navbar__panel-item">
+            <div>
+              <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.NOTIFY} />
+            </div>
+            <div>
+              <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.CHAT} />
+            </div>
+          </div>
+          <div className="navbar__user">
+            <img
+              src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      {/* {storage.isLoggedIn ? (
         <UserDropdown />
       ) : (
         <div className="navbar__link">
@@ -45,8 +91,10 @@ const NavBar = (): React.ReactElement => {
             <span className="navbar__link--bold">{link.path}</span>
           </Link>
         </div>
-      )}
+      )} */}
     </nav>
+  ) : (
+    <div />
   );
 };
 

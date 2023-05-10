@@ -1,7 +1,6 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { LoginForm } from '../../../views/login/LoginView';
-import { SignUpForm } from '../../../views/sign-up/SignUpView';
-import { Role, UserDTO } from '../../types/apiType';
+import { LoginForm, SignUpForm } from '../../../views/login/LoginView';
+import { UserDTO } from '../../types/apiType';
 
 export interface VerifyInviteForm {
   username: string;
@@ -24,8 +23,8 @@ export default class AuthService {
     return data;
   };
 
-  signUp = async ({ username, email, password, confirmationPassword }: SignUpForm): Promise<AxiosResponse<UserDTO>> => {
-    const { data } = await this.axios.post('auth/signup', { username, email, password, confirmationPassword });
+  signUp = async ({ name, email, password, confirmPassword }: any): Promise<AxiosResponse> => {
+    const { data } = await this.axios.post('auth/sign-up', { name, email, password, confirmPassword });
     return data;
   };
 }

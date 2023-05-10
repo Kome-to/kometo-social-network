@@ -1,0 +1,50 @@
+@import '../../../../common/sass/variables.scss';
+
+.online-bar {
+  // position: absolute;
+  // right: 10px;
+  // top: 10px;
+  // width: 250px;
+  margin-bottom: 10px;
+
+  &__card {
+    padding: 16px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__title {
+    font-size: 18px;
+    color: $color-grey;
+  }
+
+  &__child {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    &-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+      }
+    }
+
+    &-status {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      position: absolute;
+      right: 20px;
+      background-color: aquamarine;
+    }
+  }
+}
