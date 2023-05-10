@@ -1,7 +1,9 @@
-import UserModel from "./../models/User";
-import Bcrypt from "../common/lib/Bcrypt";
-import response from "../common/helpers/response";
 import ConflictError from "../common/errors/types/ConflictError";
+import ForbiddenError from "../common/errors/types/ForbiddenError";
+import response from "../common/helpers/response";
+import Bcrypt from "../common/lib/Bcrypt";
+import UserModel from "./../models/User";
+import { generateToken } from "../common/lib/passports";
 class AuthControllers {
   public signUp = async (req, res) => {
     const { body } = req;
@@ -30,15 +32,17 @@ class AuthControllers {
 
     const existUser = await UserModel.findOne({ where: { email: body.email } });
     if (!existUser) {
-      res.status(401).json({ error: "Wrong email" });
+      throw new ForbiddenError("Email not exist");
     }
 
-    const isMatch = Bcrypt.comparePassword(existUser.password, body.password);
+    const isMatch = Bcrypt.comparePassword(body.password, existUser.password);
 
     if (!isMatch) {
-      res.status(401).json({ error: "Password not correct" });
+      throw new ForbiddenError("Wrong password");
     }
-    res.status(200).json({ user: existUser });
+
+    const token = generateToken(existUser);
+    response.success(res, { token });
   };
 }
 

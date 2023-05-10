@@ -11,6 +11,10 @@ router.post(
   validate(validators.signup),
   wrapper(AuthControllers.signUp)
 );
-router.post("/login", validate(validators.login), AuthControllers.login);
+router.post(
+  "/login",
+  validate(validators.login),
+  wrapper(AuthControllers.login)
+);
 
 export default router;

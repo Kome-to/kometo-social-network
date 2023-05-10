@@ -29,5 +29,5 @@ function* signUpSaga(action: AnyAction): any {
 }
 
 export function* authSaga() {
-  yield all([takeLatest(authActions.login, loginSaga), takeLatest(authActions.signUp, signUpSaga)]);
+  yield all([takeLatest(authActions.login, loginSaga), takeLatest(authActions.signUp, loginSaga)]);
 }

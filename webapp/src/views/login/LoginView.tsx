@@ -1,16 +1,17 @@
 import { FastField, Form, Formik } from 'formik';
+import { get } from 'lodash';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
+import { notify } from '../../common/utils/notify';
+import { routes } from '../../common/utils/routes';
 import Button from '../../components/Button/Button';
 import Checkbox from '../../components/Checkbox/Checkbox';
 import { FormikTextInput } from '../../components/TextInput/TextInput';
+import api from '../../services/apiServices';
 import { authActions } from '../../services/controllers/auth/AuthActions';
 import './LoginView.scss';
-import { routes } from '../../common/utils/routes';
-import api from '../../services/apiServices';
-import { notify } from '../../common/utils/notify';
 
 export interface LoginProps {
   name?: string;
@@ -59,11 +60,7 @@ const LoginView: React.FC = () => {
 
   const submitForm = async (values: any) => {
     if (pathname === routes.LOGIN) {
-      try {
-        await api.auth.login(values);
-      } catch (error) {
-        notify.error('Something error');
-      }
+      dispatch(authActions.login(values));
     }
 
     if (pathname === routes.SIGN_UP) {
@@ -72,7 +69,8 @@ const LoginView: React.FC = () => {
         notify.success('Register Successfully');
         history.push(routes.LOGIN);
       } catch (error) {
-        notify.error('Something error');
+        const message = get(error, 'response.data.message');
+        notify.error(message);
       }
     }
   };

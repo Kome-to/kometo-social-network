@@ -1,6 +1,6 @@
-import httpStatus from 'http-status';
-import HttpError from './HttpError';
-import messages from '../../messages';
+import httpStatus from "http-status";
+import HttpError from "./HttpError";
+import messages from "../../messages";
 
 export default class ConflictError extends HttpError {
   constructor(message = messages.httpMessages[409]) {
