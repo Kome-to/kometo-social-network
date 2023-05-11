@@ -4,6 +4,9 @@ export const routes = {
   DEFAULT: '/',
   LOGIN: '/login',
   SIGN_UP: '/sign-up',
+
+  USER_SETTING: '/me/setting',
+  USER_SETTING_CHANGE_PASSWORD: '/me/setting/change-password',
 };
 
 export interface RouteGuard {

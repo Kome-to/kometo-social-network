@@ -4,6 +4,7 @@
 
 import { Response } from "express";
 import httpStatus from "http-status";
+import messages from "../messages";
 
 function returnObject(success = true, code: number, message = "", data = null) {
   return {
@@ -29,7 +30,7 @@ function responseData(
 function responseError(
   res: Response,
   code = httpStatus.INTERNAL_SERVER_ERROR,
-  message: string = "111",
+  message: string = messages.generalMessage.error,
   data = null
 ): Response<unknown, Record<string, unknown>> {
   return responseData(res, code, false, message, data);

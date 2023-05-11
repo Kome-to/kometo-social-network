@@ -19,6 +19,8 @@ import PrivateRoute from './components/Route/PrivateRoute';
 // Scenes
 const LoginView = lazy(() => import('./views/login/LoginView'));
 const HomeView = lazy(() => import('./views/home/HomeView'));
+const UserSettingView = lazy(() => import('./views/user-setting/UserSettingView'));
+const ChangePasswordView = lazy(() => import('./views/change-password/ChangePasswordView'));
 
 dayjs.extend(localizedFormat);
 
@@ -35,6 +37,9 @@ function App() {
                 <NavBar />
                 <Switch>
                   <PrivateRoute exact path={routes.DEFAULT} component={HomeView} guards={[authGuard]} />
+
+                  <PrivateRoute exact path={routes.USER_SETTING} component={UserSettingView} guards={[authGuard]} />
+                  <PrivateRoute exact path={routes.USER_SETTING_CHANGE_PASSWORD} component={ChangePasswordView} guards={[authGuard]} />
 
                   <PrivateRoute exact path={routes.LOGIN} component={LoginView} guards={[unAuthGuard]} />
                   <PrivateRoute exact path={routes.SIGN_UP} component={LoginView} guards={[unAuthGuard]} />

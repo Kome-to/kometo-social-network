@@ -11,6 +11,10 @@ import Shop from './icons/shop.svg';
 import User from './icons/user.svg';
 import Chat from './icons/chat.svg';
 import Notify from './icons/notify.svg';
+import CreatePost from './icons/create-post.svg';
+import Photo from './icons/photo.svg';
+import LeftArrow from './icons/left-arrow.svg';
+import AngleRight from './icons/angle-right.svg';
 
 import './Icon.scss';
 
@@ -25,6 +29,10 @@ export const ICONS = {
   USER: User.id,
   NOTIFY: Notify.id,
   CHAT: Chat.id,
+  CREATE_POST: CreatePost.id,
+  PHOTO: Photo.id,
+  LEFT_ARROW: LeftArrow.id,
+  ANGLE_RIGHT: AngleRight.id,
 };
 
 export interface IconProps {

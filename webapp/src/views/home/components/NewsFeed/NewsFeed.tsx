@@ -215,6 +215,10 @@ const NewsFeed: React.FC = () => {
         'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
     },
   ];
+
+  const addMedia = () => {
+    alert('12');
+  };
   return (
     <div className="news-feed">
       <div className="news-feed__wrapper">
@@ -261,7 +265,7 @@ const NewsFeed: React.FC = () => {
           <Card className="news-feed__create">
             <div className="news-feed__create-header">
               <div className="news-feed__create-header-icon">
-                <Icon className="navbar__icon" name={ICONS.HOME} size={IconSize.SM} />
+                <Icon className="navbar__icon" name={ICONS.CREATE_POST} size={IconSize.SM} />
               </div>
               <div className="news-feed__create-header-text">Create post</div>
             </div>
@@ -271,26 +275,23 @@ const NewsFeed: React.FC = () => {
                 src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A"
                 alt=""
               />
-              <textarea name="" id="" placeholder="What's on your mind ?" />
+              <textarea name="content" id="" placeholder="What's on your mind ?" />
             </div>
             <div className="news-feed__create-footer">
               <div className="news-feed__create-option">
                 <div className="news-feed__create-option-item">
-                  <Icon className="navbar__icon" name={ICONS.HOME} size={IconSize.SM} />
+                  <Icon className="navbar__icon" name={ICONS.LIVE} size={IconSize.SM} />
                   <div>Live Video</div>
                 </div>
                 <div className="news-feed__create-option-item">
-                  <Icon className="navbar__icon" name={ICONS.HOME} size={IconSize.SM} />
+                  <Icon className="navbar__icon" name={ICONS.PHOTO} size={IconSize.SM} />
                   <div>Photo/Video</div>
-                </div>
-                <div className="news-feed__create-option-item">
-                  <Icon className="navbar__icon" name={ICONS.HOME} size={IconSize.SM} />
-                  <div>Feeling/Activity</div>
+                  <input type="file" className="news-feed__create-option-media" onChange={addMedia} />
                 </div>
               </div>
-              <div className="news-feed__create-more">
-                <Icon className="navbar__icon" name={ICONS.HOME} size={IconSize.SM} />
-              </div>
+              <Button type="submit" className="news-feed__create-more" dataId="button">
+                Post
+              </Button>
             </div>
           </Card>
           <div>

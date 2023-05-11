@@ -1,13 +1,12 @@
 import { FastField, Form, Formik } from 'formik';
 import { get } from 'lodash';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { notify } from '../../common/utils/notify';
 import { routes } from '../../common/utils/routes';
 import Button from '../../components/Button/Button';
-import Checkbox from '../../components/Checkbox/Checkbox';
 import { FormikTextInput } from '../../components/TextInput/TextInput';
 import api from '../../services/apiServices';
 import { authActions } from '../../services/controllers/auth/AuthActions';
@@ -39,7 +38,6 @@ const LoginView: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { pathname } = useLocation();
-  const [isRemember, setIsRemember] = useState(false);
   const loginSchema = (() => {
     switch (pathname) {
       case routes.LOGIN:
@@ -94,15 +92,6 @@ const LoginView: React.FC = () => {
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="email" placeholder="Your Email Address" />
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="password" placeholder="Password" />
                 <div className="login__option">
-                  <Checkbox
-                    value={isRemember}
-                    onChange={() => {
-                      setIsRemember(!isRemember);
-                    }}
-                    className="login__check-box"
-                    name="rememberMe"
-                    label="Remember me"
-                  />
                   <Link className="login__forgot" to="/">
                     Forgot your password
                   </Link>
@@ -114,7 +103,7 @@ const LoginView: React.FC = () => {
             )}
           </Formik>
           <div className="login__register">
-            Don&apos;t have account{' '}
+            Don&apos;t have account
             <Link to="/sign-up">
               <span>Register</span>
             </Link>
@@ -138,17 +127,6 @@ const LoginView: React.FC = () => {
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="email" placeholder="Your Email Address" />
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="password" placeholder="Password" />
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="confirmPassword" placeholder="Confirm Password" />
-                <div className="login__option">
-                  <Checkbox
-                    value={isRemember}
-                    onChange={() => {
-                      setIsRemember(!isRemember);
-                    }}
-                    className="login__check-box"
-                    name="rememberMe"
-                    label="Accept Term and Conditions"
-                  />
-                </div>
                 <Button type="submit" className="login__button" dataId="button">
                   Register
                 </Button>

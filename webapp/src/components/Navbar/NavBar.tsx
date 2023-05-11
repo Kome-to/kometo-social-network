@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { FastField, Form, Formik } from 'formik';
 import { routes } from '../../common/utils/routes';
@@ -13,6 +13,7 @@ const NavBar = (): React.ReactElement => {
   const { pathname } = useLocation();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const hiddenNavbarRouter = [routes.LOGIN, routes.SIGN_UP];
 
@@ -74,7 +75,12 @@ const NavBar = (): React.ReactElement => {
               <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.CHAT} />
             </div>
           </div>
-          <div className="navbar__user">
+          <div
+            className="navbar__user"
+            onClick={() => {
+              history.push(routes.USER_SETTING);
+            }}
+          >
             <img
               src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A"
               alt=""

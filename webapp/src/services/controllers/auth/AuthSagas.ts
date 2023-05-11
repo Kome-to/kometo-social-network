@@ -5,12 +5,12 @@ import { notify } from '../../../common/utils/notify';
 import { storage } from '../../../common/utils/storage';
 import api from '../../apiServices';
 import { authActions } from './AuthActions';
-import { resetPasswordSuccess, signUpSuccess } from './AuthSlice';
+import { signUpSuccess } from './AuthSlice';
 
 function* loginSaga(action: AnyAction): any {
   try {
     const data = yield call(api.auth.login, action.payload);
-    storage.setToken(data);
+    storage.setToken(data, { path: '/' });
     window.location.reload();
   } catch (error) {
     const message = get(error, 'response.data.message');
