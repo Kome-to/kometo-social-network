@@ -6,7 +6,7 @@ export default {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().max(200).required(),
-      confirmPassword: Joi.ref('password'),
+      confirmPassword: Joi.ref("password"),
     }),
   },
 
@@ -14,6 +14,14 @@ export default {
     body: Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().max(200).required(),
+    }),
+  },
+
+  changePassword: {
+    body: Joi.object({
+      currentPassword: Joi.string().max(200).required(),
+      newPassword: Joi.string().max(200).required(),
+      confirmPassword: Joi.ref("newPassword"),
     }),
   },
 };

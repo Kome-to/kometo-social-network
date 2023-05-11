@@ -56,6 +56,7 @@ const Category: React.FC<{ data: any }> = ({ data }) => {
         });
         return (
           <div
+            key={option.name}
             className={styles}
             onClick={() => {
               handleClick(option.name);
@@ -79,7 +80,7 @@ const SettingCard: React.FC = () => {
       <Card className="user-setting__card">
         <div className="user-setting__header">Settings</div>
         {categories.map((category) => (
-          <Category data={category} />
+          <Category key={category.header} data={category} />
         ))}
       </Card>
     </div>

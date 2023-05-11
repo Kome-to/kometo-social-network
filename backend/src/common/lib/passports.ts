@@ -1,6 +1,8 @@
 import * as jwt from "jsonwebtoken";
 import env from "./../../../config/env";
 import passportJWT from "passport-jwt";
+import UserModel from "../../models/User";
+import ForbiddenError from "../errors/types/ForbiddenError";
 
 export interface JWTPayload {
   sub: string;
@@ -8,7 +10,6 @@ export interface JWTPayload {
   email: string;
 }
 
-const TOKEN_SIGN_ALGORITHM = "HS256";
 const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;
 
@@ -20,19 +21,27 @@ export function passportConfiguration(passport) {
 
   passport.use(
     new JwtStrategy(opts, async (jwtPayload, cb) => {
-      cb(new Error("Something wrong in token"), false);
+      const user = await UserModel.findOne({ where: { id: jwtPayload.id } });
+
+      if (user) {
+        if (!user.password === jwtPayload.password) {
+          cb(new ForbiddenError("Outdate token"), false);
+        } else {
+          cb(null, { user });
+        }
+      } else {
+        cb(new Error("Something wrong in token"), false);
+      }
     })
   );
 }
 
 export function generateToken(user: any) {
   return jwt.sign(
-    { id: user.id, email: user.email, passwordUpdateAt: user.passwordUpdateAt },
+    { id: user.id, email: user.email, password: user.password },
     env.jwtSecret,
     {
-      expiresIn: user.sessionExpire
-        ? `${user.sessionExpire}h`
-        : env.jwtExpiresIn,
+      expiresIn: env.jwtExpiresIn,
     }
   );
 }

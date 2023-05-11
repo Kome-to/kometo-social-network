@@ -19,9 +19,10 @@ const LeftBar: React.FC = () => {
     <div className="left-bar">
       <Card className="left-bar__card">
         <div className="left-bar__card-title">New Feeds</div>
-        {newsFeeds.map((newItem) => {
+        {newsFeeds.map((newItem, i) => {
+          const key = `${newItem.name}${i}`;
           return (
-            <div className="left-bar__card-item" key={newItem.name}>
+            <div className="left-bar__card-item" key={key}>
               <div>
                 <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.HOME} />
               </div>
@@ -32,9 +33,10 @@ const LeftBar: React.FC = () => {
       </Card>
       <Card className="left-bar__card">
         <div className="left-bar__card-title">More Pages</div>
-        {morePages.map((morePage) => {
+        {morePages.map((morePage, i) => {
+          const key = `${morePage.name}${i}`;
           return (
-            <div className="left-bar__card-item" key={morePage.name}>
+            <div className="left-bar__card-item" key={key}>
               <div>
                 <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.HOME} />
               </div>
@@ -46,9 +48,10 @@ const LeftBar: React.FC = () => {
       </Card>
       <Card className="left-bar__card">
         <div className="left-bar__card-title">Account</div>
-        {account.map((accountItem) => {
+        {account.map((accountItem, i) => {
+          const key = `${accountItem.name}${i}`;
           return (
-            <div className="left-bar__card-item" key={accountItem.name}>
+            <div className="left-bar__card-item" key={key}>
               <div>
                 <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.HOME} />
               </div>

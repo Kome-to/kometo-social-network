@@ -27,4 +27,9 @@ export default class AuthService {
     const { data } = await this.axios.post('auth/sign-up', { name, email, password, confirmPassword });
     return data;
   };
+
+  changePassword = async ({ currentPassword, newPassword, confirmPassword }: any): Promise<AxiosResponse> => {
+    const { data } = await this.axios.post('auth/change-password', { currentPassword, newPassword, confirmPassword });
+    return data;
+  };
 }

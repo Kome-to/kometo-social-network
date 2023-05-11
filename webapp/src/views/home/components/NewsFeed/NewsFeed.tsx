@@ -244,8 +244,9 @@ const NewsFeed: React.FC = () => {
                 </Card>
               </SwiperSlide>
               {stories.map((story, index) => {
+                const key = story.name + index;
                 return (
-                  <SwiperSlide className="news-feed__story-slide">
+                  <SwiperSlide key={key} className="news-feed__story-slide">
                     <Card>
                       <div className="news-feed__story-content">
                         <img className="news-feed__story-slide-image" src={story.image} alt="" />
@@ -295,8 +296,9 @@ const NewsFeed: React.FC = () => {
             </div>
           </Card>
           <div>
-            {postList.map((postItem) => {
-              return <Post data={postItem} />;
+            {postList.map((postItem, i) => {
+              const key = postItem.userName + i;
+              return <Post key={key} data={postItem} />;
             })}
           </div>
         </div>
@@ -308,9 +310,10 @@ const NewsFeed: React.FC = () => {
                 <div className="news-feed__card-title">Friend Request</div>
                 <div className="news-feed__card-see-all">See all</div>
               </div>
-              {requestFriends.map((requestFriend) => {
+              {requestFriends.map((requestFriend, i) => {
+                const key = requestFriend.name + i;
                 return (
-                  <div className="news-feed__card-item">
+                  <div key={key} className="news-feed__card-item">
                     <div className="news-feed__card-item-content">
                       <div className="news-feed__card-item-image">
                         <img src={requestFriend.avatar} alt="" />
@@ -340,9 +343,10 @@ const NewsFeed: React.FC = () => {
                 <div className="news-feed__card-see-all">See all</div>
               </div>
               <div className="news-feed__photo-list">
-                {photoList.map((photo) => {
+                {photoList.map((photo, i) => {
+                  const key = photo + i;
                   return (
-                    <div className="news-feed__photo">
+                    <div key={key} className="news-feed__photo">
                       <img src={photo} alt="" />
                     </div>
                   );
@@ -357,9 +361,10 @@ const NewsFeed: React.FC = () => {
                 <div className="news-feed__card-see-all">See all</div>
               </div>
               <div>
-                {suggestPages.map((page) => {
+                {suggestPages.map((page, i) => {
+                  const key = page.image + i;
                   return (
-                    <div className="news-feed__suggest-page">
+                    <div key={key} className="news-feed__suggest-page">
                       <div className="news-feed__suggest-page-image">
                         <img src={page.image} alt="" />
                       </div>

@@ -102,9 +102,10 @@ const OnlineBar: React.FC = () => {
       <Card className="online-bar__card">
         <div className="online-bar__item">
           <div className="online-bar__title">CONTACTS</div>
-          {contacts.map((contact) => {
+          {contacts.map((contact, i) => {
+            const key = contact.name + i;
             return (
-              <div className="online-bar__child">
+              <div key={key} className="online-bar__child">
                 <div className="online-bar__child-image">
                   <img src={contact.avatar} alt="" />
                 </div>
@@ -116,9 +117,10 @@ const OnlineBar: React.FC = () => {
         </div>
         <div className="online-bar__item">
           <div className="online-bar__title">GROUPS</div>
-          {groups.map((contact) => {
+          {groups.map((contact, i) => {
+            const key = contact.name + i;
             return (
-              <div className="online-bar__child">
+              <div key={key} className="online-bar__child">
                 <div className="online-bar__child-image">
                   <img src={contact.avatar} alt="" />
                 </div>
@@ -130,9 +132,10 @@ const OnlineBar: React.FC = () => {
         </div>
         <div className="online-bar__item">
           <div className="online-bar__title">PAGES</div>
-          {pages.map((contact) => {
+          {pages.map((contact, i) => {
+            const key = contact.name + i;
             return (
-              <div className="online-bar__child">
+              <div key={key} className="online-bar__child">
                 <div className="online-bar__child-image">
                   <img src={contact.avatar} alt="" />
                 </div>

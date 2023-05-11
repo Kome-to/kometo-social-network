@@ -8,6 +8,9 @@ import {
   handleRouteNotFound,
   handleServerException,
 } from "./common/errors/index";
+import { passportConfiguration } from "./common/lib/passports";
+import passport from "passport";
+
 import routes from "./routes";
 
 dotenv.config();
@@ -18,6 +21,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
 app.use("/api/v1", routes);
+passportConfiguration(passport);
+app.use(() => {
+  passport.initialize();
+});
 
 const handleError = (app) => {
   app.use(handleRouteNotFound);

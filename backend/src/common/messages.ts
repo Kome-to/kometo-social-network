@@ -14,4 +14,9 @@ export default {
     500: 'Internal Server Error',
     544: 'Unknown HTTP Error',
   },
+
+  auth: {
+    invalidToken: 'Token invalid',
+    permissionDenied: 'Permission denied',
+  },
 };

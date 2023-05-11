@@ -3,16 +3,29 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { FastField, Form, Formik } from 'formik';
+import { get } from 'lodash';
+import { notify } from '../../common/utils/notify';
+import { routes } from '../../common/utils/routes';
+import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import Icon, { ICONS } from '../../components/Icon/Icon';
 import { FormikTextInput } from '../../components/TextInput/TextInput';
 import LeftBar from '../home/components/LeftBar/LeftBar';
 import './ChangePasswordView.scss';
-import Button from '../../components/Button/Button';
-import { routes } from '../../common/utils/routes';
+import api from '../../services/apiServices';
 
 const ChangePasswordView: React.FC = () => {
   const history = useHistory();
+
+  const onSubmit = async (values: any) => {
+    try {
+      await api.auth.changePassword(values);
+      notify.success('Change password success');
+    } catch (e) {
+      const message = get(e, 'response.data.message');
+      notify.error(message);
+    }
+  };
   return (
     <div>
       <LeftBar />
@@ -38,7 +51,7 @@ const ChangePasswordView: React.FC = () => {
                   .required('Field is required')
                   .oneOf([Yup.ref('newPassword')], 'Password must match'),
               })}
-              onSubmit={() => {}}
+              onSubmit={onSubmit}
               initialValues={{ currentPassword: '', newPassword: '', confirmPassword: '' }}
             >
               {() => (

@@ -9,8 +9,9 @@ import { signUpSuccess } from './AuthSlice';
 
 function* loginSaga(action: AnyAction): any {
   try {
-    const data = yield call(api.auth.login, action.payload);
-    storage.setToken(data, { path: '/' });
+    const { token } = yield call(api.auth.login, action.payload);
+
+    storage.setToken(token, { path: '/' });
     window.location.reload();
   } catch (error) {
     const message = get(error, 'response.data.message');

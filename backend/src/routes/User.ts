@@ -8,18 +8,7 @@ import authentication from "../middlewares/authentication";
 const router = express.Router();
 
 router.post(
-  "/sign-up",
-  validate(validators.signup),
-  wrapper(AuthControllers.signUp)
-);
-router.post(
-  "/login",
-  validate(validators.login),
-  wrapper(AuthControllers.login)
-);
-
-router.post(
-  "/change-password",
+  "/test",
   [authentication],
   validate(validators.changePassword),
   wrapper(AuthControllers.changePassword)

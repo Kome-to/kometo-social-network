@@ -28,7 +28,6 @@ class AuthControllers {
 
   public login = async (req, res) => {
     const { body } = req;
-    console.log(body);
 
     const existUser = await UserModel.findOne({ where: { email: body.email } });
     if (!existUser) {
@@ -42,7 +41,25 @@ class AuthControllers {
     }
 
     const token = generateToken(existUser);
+    console.log(token);
+
     response.success(res, { token });
+  };
+
+  public changePassword = async (req, res) => {
+    const { body, user } = req;
+
+    if (!Bcrypt.comparePassword(body.currentPassword, user.password)) {
+      throw new ForbiddenError("Wrong password");
+    }
+
+    const newPassword = Bcrypt.generateHashPassword(body.newPassword);
+
+    await UserModel.update(
+      { password: newPassword },
+      { where: { id: user.id } }
+    );
+    response.success(res);
   };
 }
 

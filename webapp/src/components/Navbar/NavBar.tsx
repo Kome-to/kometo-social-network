@@ -49,7 +49,12 @@ const NavBar = (): React.ReactElement => {
             </Formik>
           </div>
           <div className="navbar__feature">
-            <div className="navbar__icon-wrapper">
+            <div
+              className="navbar__icon-wrapper"
+              onClick={() => {
+                history.push(routes.DEFAULT);
+              }}
+            >
               <Icon className="navbar__icon" name={ICONS.HOME} />
             </div>
             <div className="navbar__icon-wrapper">
