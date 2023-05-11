@@ -30,6 +30,11 @@
       justify-content: space-between;
     }
 
+    &-icon {
+      display: flex;
+      align-items: center;
+    }
+
     &-title {
       font-size: 16px;
       font-weight: 800;
@@ -45,11 +50,21 @@
       display: flex;
       justify-content: center;
       gap: 30px;
+      &--between {
+        justify-content: space-between;
+        gap: 0px;
+      }
     }
 
     &-item {
       margin-top: 10px;
       font-size: 18px;
+      &--background {
+        background-color: $color-grey-l80;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
     }
 
     &-item-image {

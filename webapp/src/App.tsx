@@ -21,6 +21,7 @@ const LoginView = lazy(() => import('./views/login/LoginView'));
 const HomeView = lazy(() => import('./views/home/HomeView'));
 const UserSettingView = lazy(() => import('./views/user-setting/UserSettingView'));
 const ChangePasswordView = lazy(() => import('./views/change-password/ChangePasswordView'));
+const SuggestFriendView = lazy(() => import('./views/suggest-friend-view/SuggestFriendView'));
 
 dayjs.extend(localizedFormat);
 
@@ -40,6 +41,8 @@ function App() {
 
                   <PrivateRoute exact path={routes.USER_SETTING} component={UserSettingView} guards={[authGuard]} />
                   <PrivateRoute exact path={routes.USER_SETTING_CHANGE_PASSWORD} component={ChangePasswordView} guards={[authGuard]} />
+
+                  <PrivateRoute exact path={routes.SUGGEST_FRIEND} component={SuggestFriendView} guards={[authGuard]} />
 
                   <PrivateRoute exact path={routes.LOGIN} component={LoginView} guards={[unAuthGuard]} />
                   <PrivateRoute exact path={routes.SIGN_UP} component={LoginView} guards={[unAuthGuard]} />

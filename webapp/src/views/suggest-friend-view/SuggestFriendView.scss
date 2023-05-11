@@ -1,0 +1,53 @@
+@import './../../common/sass/variables.scss';
+
+.suggest-friend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  margin-left: 260px;
+  padding-bottom: 30px;
+
+  &__header {
+    width: 80%;
+    height: 80px;
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  &__search {
+    width: 60%;
+    display: flex;
+    justify-content: right;
+    padding-right: 30px;
+    form {
+      width: 70%;
+    }
+    .text-input {
+      margin-bottom: 0px;
+    }
+    input {
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid $color-grey;
+      padding: 0 20px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    width: 80%;
+    row-gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 15px;
+    margin-top: 30px;
+  }
+}

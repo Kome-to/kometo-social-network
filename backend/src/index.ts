@@ -34,8 +34,7 @@ const handleError = (app) => {
 };
 handleError(app);
 
-const port = process.env.PORT as any | 4044;
-
+const port = 9043
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

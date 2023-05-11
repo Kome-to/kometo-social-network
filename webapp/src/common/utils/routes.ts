@@ -5,6 +5,8 @@ export const routes = {
   LOGIN: '/login',
   SIGN_UP: '/sign-up',
 
+  SUGGEST_FRIEND: '/suggest-friend',
+
   USER_SETTING: '/me/setting',
   USER_SETTING_CHANGE_PASSWORD: '/me/setting/change-password',
 };

@@ -1,15 +1,18 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useHistory } from 'react-router-dom';
+import { routes } from '../../../../common/utils/routes';
 import Button from '../../../../components/Button/Button';
 import Card from '../../../../components/Card/Card';
-import './NewsFeed.scss';
-import Post from './Post/Post';
 import Icon, { ICONS, IconSize } from '../../../../components/Icon/Icon';
 import OnlineBar from '../OnlineBar/OnlineBar';
+import './NewsFeed.scss';
+import Post from './Post/Post';
 
 const NewsFeed: React.FC = () => {
+  const history = useHistory();
   const postList = [
     {
       userName: 'Surfiya Zakir',
@@ -330,6 +333,39 @@ const NewsFeed: React.FC = () => {
                       <Button className="news-feed__button news-feed__delete" dataId="button">
                         Delete
                       </Button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+          <Card className="news-feed__card">
+            <div>
+              <div className="news-feed__card-header">
+                <div className="news-feed__card-title">Suggest Friends</div>
+                <div className="news-feed__card-see-all">See all</div>
+              </div>
+              {requestFriends.map((requestFriend, i) => {
+                const key = requestFriend.name + i;
+                return (
+                  <div
+                    onClick={() => {
+                      history.push(routes.SUGGEST_FRIEND);
+                    }}
+                    key={key}
+                    className="news-feed__card-item news-feed__card-item--background"
+                  >
+                    <div className="news-feed__card-item-content news-feed__card-item-content--between">
+                      <div className="news-feed__card-item-image">
+                        <img src={requestFriend.avatar} alt="" />
+                      </div>
+                      <div className="news-feed__card-text">
+                        <div>{requestFriend.name}</div>
+                        <div className="news-feed__mutual-friends">{`${requestFriend.mutualFriends} mutual friends`}</div>
+                      </div>
+                      <div className="news-feed__card-icon">
+                        <Icon className="navbar__icon" name={ICONS.ANGLE_RIGHT} size={IconSize.LG} />
+                      </div>
                     </div>
                   </div>
                 );
