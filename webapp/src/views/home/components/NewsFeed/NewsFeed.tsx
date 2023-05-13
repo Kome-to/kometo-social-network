@@ -57,27 +57,27 @@ const NewsFeed: React.FC = () => {
     'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
     'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
   ];
-  const requestFriends = [
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      mutualFriends: 12,
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      mutualFriends: 12,
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      mutualFriends: 12,
-    },
-  ];
-
+  const requestFriends: any[] = [];
+  // [
+  //   {
+  //     name: 'Chu Duc Anh',
+  //     avatar:
+  //       'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
+  //     mutualFriends: 12,
+  //   },
+  //   {
+  //     name: 'Chu Duc Anh',
+  //     avatar:
+  //       'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
+  //     mutualFriends: 12,
+  //   },
+  //   {
+  //     name: 'Chu Duc Anh',
+  //     avatar:
+  //       'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
+  //     mutualFriends: 12,
+  //   },
+  // ];
   const stories = [
     {
       name: 'Chu Duc Anh',
@@ -254,7 +254,7 @@ const NewsFeed: React.FC = () => {
                 <div className="news-feed__create-option-item">
                   <Icon className="navbar__icon" name={ICONS.PHOTO} size={IconSize.SM} />
                   <div>Photo/Video</div>
-                  <input type="file" accept="image/* video/*" className="news-feed__create-option-media" onChange={addMedia} />
+                  <input type="file" accept="image/*, video/*" className="news-feed__create-option-media" onChange={addMedia} />
                 </div>
               </div>
               <div className="news-feed__create-actions">
@@ -321,7 +321,14 @@ const NewsFeed: React.FC = () => {
             <div>
               <div className="news-feed__card-header">
                 <div className="news-feed__card-title">Suggest Friends</div>
-                <div className="news-feed__card-see-all">See all</div>
+                <div
+                  onClick={() => {
+                    history.push(routes.SUGGEST_FRIEND);
+                  }}
+                  className="news-feed__card-see-all"
+                >
+                  See all
+                </div>
               </div>
               {requestFriends.map((requestFriend, i) => {
                 const key = requestFriend.name + i;

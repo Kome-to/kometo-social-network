@@ -19,4 +19,11 @@ export default {
       fileName: Joi.string(),
     }),
   },
+
+  requestFriend: {
+    body: Joi.object({
+      id: Joi.string().required(),
+      action: Joi.string().required().valid("accept", "request", "cancel"),
+    }),
+  },
 };

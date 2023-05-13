@@ -29,7 +29,12 @@ const NavBar = (): React.ReactElement => {
 
   return !hiddenNavbarRouter.includes(pathname) ? (
     <nav className={classes}>
-      <div className="navbar__logo">
+      <div
+        onClick={() => {
+          history.push(routes.DEFAULT);
+        }}
+        className="navbar__logo"
+      >
         <div>Kometo</div>
       </div>
       <div className="navbar__main">

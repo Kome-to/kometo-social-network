@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../common/lib/Sequelize";
 import UserModel from "./User";
+import { v4 as uuidv4 } from "uuid";
 
 class FriendModel extends Model {
   declare id: string;
@@ -31,25 +32,26 @@ FriendModel.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    file: {
-      type: DataTypes.STRING(),
-    },
   },
   {
-    tableName: "post",
+    tableName: "friend",
     underscored: true,
     freezeTableName: true,
     sequelize,
   }
 );
 
-// UserModel.hasMany(FriendModel, {
-//   foreignKey: "id",
-//   onDelete: "CASCADE",
-//   hooks: true,
-//   as: "friend",
-// });
+UserModel.hasMany(FriendModel, {
+  foreignKey: "to_user",
+  onDelete: "CASCADE",
+  hooks: true,
+  as: "friend",
+});
 
-FriendModel.belongsTo(UserModel, { foreignKey: "id" });
+FriendModel.belongsTo(UserModel, { foreignKey: "to_user" });
+
+FriendModel.beforeCreate((instance) => {
+  instance.id = uuidv4();
+});
 
 export default FriendModel;

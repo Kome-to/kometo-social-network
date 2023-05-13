@@ -5,13 +5,7 @@ import './LeftBar.scss';
 import Icon, { ICONS } from '../../../../components/Icon/Icon';
 
 const LeftBar: React.FC = () => {
-  const newsFeeds = [
-    { name: 'News feed' },
-    { name: 'Badges' },
-    { name: 'Explore Stories' },
-    { name: 'Groups' },
-    { name: 'Author Profile' },
-  ];
+  const newsFeeds = [{ name: 'News feed' }, { name: 'Badges' }, { name: 'Explore Stories' }, { name: 'Groups' }, { name: 'My Profile' }];
   const morePages = [{ name: 'Email Box' }, { name: 'Near Hotel' }, { name: 'Latest Event' }, { name: 'Live Stream' }];
   const account = [{ name: 'Settings' }, { name: 'Badges' }, { name: 'Analytics' }, { name: 'Chat' }];
 

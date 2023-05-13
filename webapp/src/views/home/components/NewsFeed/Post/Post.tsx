@@ -25,7 +25,7 @@ const Post: React.FC<{ data: any }> = ({ data }) => {
           </div>
         </div>
         <div className="post__header-option">
-          <Icon className="navbar__icon" name={ICONS.HOME} />
+          <Icon className="navbar__icon" name={ICONS.OPTION} />
         </div>
       </div>
       <div className="post__container">
@@ -44,16 +44,16 @@ const Post: React.FC<{ data: any }> = ({ data }) => {
       <div className="post__footer">
         <div className="post__footer-react">
           <div className="post__footer-like">
-            <Icon className="navbar__icon" name={ICONS.HOME} />
-            <div>{`${data.likes} likes`}</div>
+            <Icon className="navbar__icon" name={ICONS.LIKE} />
+            <div>{`${data.likes.length} likes`}</div>
           </div>
           <div className="post__footer-comment">
-            <Icon className="navbar__icon" name={ICONS.HOME} />
-            <div>{`${data.comments} comments`}</div>
+            <Icon className="navbar__icon" name={ICONS.COMMENT} />
+            <div>{`${data.comments.length} comments`}</div>
           </div>
         </div>
         <div className="post__footer-share">
-          <Icon className="navbar__icon" name={ICONS.HOME} />
+          <Icon className="navbar__icon" name={ICONS.SHARE} />
           <div>Share</div>
         </div>
       </div>

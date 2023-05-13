@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -6,41 +8,41 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("friend", {
+
+    await queryInterface.createTable("event_post", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      fromUser: {
+      postId: {
         type: Sequelize.UUID,
-        allowNull: false,
+        onDelete: "CASCADE",
         references: {
-          model: {
-            tableName: "user",
-          },
+          model: { tableName: "post" },
           key: "id",
         },
-        onDelete: 'CASCADE',
-        field: "from_user",
+        field: "post_id",
       },
-      toUser: {
+      user_id: {
         type: Sequelize.UUID,
-        allowNull: false,
+        onDelete: "CASCADE",
         references: {
-          model: {
-            tableName: "user",
-          },
+          model: { tableName: "user" },
           key: "id",
         },
-        onDelete: 'CASCADE',
-        field: "to_user",
+        field: "user_id",
       },
-      isAccept: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-        field: "is_accept",
+      eventType: {
+        type: Sequelize.ENUM,
+        values: ["LIKE", "COMMENT", "SHARE"],
+        defaultValue: null,
+      },
+      content: {
+        type: Sequelize.TEXT,
+      },
+      file: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -64,6 +66,7 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("friend");
+
+    await queryInterface.dropTable("event_post");
   },
 };

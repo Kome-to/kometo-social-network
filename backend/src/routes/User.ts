@@ -24,6 +24,13 @@ router.get(
   [authentication],
   wrapper(UserControllers.getSuggestFriends)
 );
+router.post(
+  "/request-friend",
+  [authentication],
+  validate(validators.requestFriend),
+  wrapper(UserControllers.requestFriend)
+);
+
 router.get("/me", [authentication], wrapper(UserControllers.getMe));
 router.post(
   "/me",

@@ -1,19 +1,18 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../common/lib/Sequelize";
 import { v4 as uuidv4 } from "uuid";
-import UserModel from "./User";
-import EventPostModel from "./EventPost";
+import PostModel from "./Post";
 
-class PostModel extends Model {
+class EventPostModel extends Model {
   declare id: string;
   declare userId: string;
+  declare postId: string;
+  declare eventType: string;
   declare content: string;
-  declare file: string;
-  declare post_user: UserModel;
-  declare events: EventPostModel;
+  declare post: PostModel;
 }
 
-PostModel.init(
+EventPostModel.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -25,6 +24,12 @@ PostModel.init(
       onDelete: "CASCADE",
       field: "user_id",
     },
+    postId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      onDelete: "CASCADE",
+      field: "post_id",
+    },
     content: {
       type: DataTypes.TEXT,
     },
@@ -33,17 +38,18 @@ PostModel.init(
     },
   },
   {
-    tableName: "post",
+    tableName: "event_post",
     underscored: true,
     freezeTableName: true,
     sequelize,
   }
 );
 
-PostModel.beforeCreate((instance) => {
+EventPostModel.beforeCreate((instance) => {
   instance.id = uuidv4();
 });
 
-PostModel.belongsTo(UserModel, { foreignKey: "user_id", as: "post_user" });
+EventPostModel.belongsTo(PostModel, { foreignKey: "post_id", as: "post" });
+PostModel.hasMany(EventPostModel, { foreignKey: "post_id", as: "events" });
 
-export default PostModel;
+export default EventPostModel;

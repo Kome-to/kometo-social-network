@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState: {
+  current: any | undefined;
+  suggestFriendList: any[];
+} = {
   current: undefined,
+  suggestFriendList: [],
 };
 
 export const userSlice = createSlice({
@@ -11,9 +15,12 @@ export const userSlice = createSlice({
     setCurrentUser: (state, action: PayloadAction<any>) => {
       state.current = action.payload;
     },
+    setSuggestFriendList: (state, action: PayloadAction<any>) => {
+      state.suggestFriendList = [...action.payload];
+    },
   },
 });
 
-export const { setCurrentUser } = userSlice.actions;
+export const { setCurrentUser, setSuggestFriendList } = userSlice.actions;
 
 export default userSlice.reducer;

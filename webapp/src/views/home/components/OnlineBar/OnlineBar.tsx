@@ -101,7 +101,7 @@ const OnlineBar: React.FC = () => {
     <div className="online-bar">
       <Card className="online-bar__card">
         <div className="online-bar__item">
-          <div className="online-bar__title">CONTACTS</div>
+          <div className="online-bar__title">FRIENDS</div>
           {contacts.map((contact, i) => {
             const key = contact.name + i;
             return (

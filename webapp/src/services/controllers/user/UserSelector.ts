@@ -4,3 +4,4 @@ import { RootState } from '../../../store';
 const selectUser = (state: RootState) => state.user;
 
 export const selectCurrentUser = createSelector(selectUser, (user) => user.current);
+export const selectSuggestFriendsList = createSelector(selectUser, (user) => user.suggestFriendList);

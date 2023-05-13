@@ -68,11 +68,11 @@ UserModel.init(
 );
 
 
+
 UserModel.beforeCreate((instance) => {
   instance.id = uuidv4();
   instance.email = instance.email.toLowerCase().trim();
 });
-
 UserModel.beforeUpdate((instance) => {
   instance.email = instance.email.toLowerCase().trim();
 });

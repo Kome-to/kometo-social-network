@@ -59,8 +59,13 @@ export default class UserService {
     return data;
   };
 
-  getUseSuggestion = async (searchKey: string) => {
-    const { data } = await this.axios.get('users/autosuggest', { params: { searchKey } });
+  getSuggestFriend = async () => {
+    const { data } = await this.axios.get('user/suggest-friend');
+    return data;
+  };
+
+  requestFriend = async ({ id, action }: any) => {
+    const { data } = await this.axios.post('user/request-friend', { id, action });
     return data;
   };
 
