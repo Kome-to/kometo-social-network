@@ -1,0 +1,168 @@
+@import '../../common/sass/variables';
+
+.notification {
+  $root: &;
+
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+
+  &__icon {
+    width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px 0px 0px 2px;
+    flex-shrink: 0;
+    margin-left: 18px;
+
+    .fa {
+      color: $color-white;
+      font-size: initial;
+      margin-left: 4px;
+    }
+  }
+
+  &__close-icon {
+    padding: 0 var(--sp-2);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-radius: 0px 2px 2px 0px;
+    img {
+      margin-right: 18px;
+      cursor: pointer;
+    }
+  }
+
+  &__line {
+    border: 0 none;
+    border-right: 1px dashed;
+    background: none;
+    margin: 2px;
+  }
+
+  &__wrapper {
+    padding: 20px 8px 20px 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: bold;
+    color: $color-white;
+  }
+
+  &__content {
+    font-size: 14px;
+    color: $color-white;
+  }
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover,
+    &:focus {
+      transform: scale(1.2);
+    }
+  }
+
+  &--success {
+    background-color: $bg-success;
+    #{$root}__content {
+      color: $success;
+    }
+  }
+
+  &--info {
+    background-color: $bg-info;
+    #{$root}__content {
+      color: $info;
+    }
+  }
+
+  &--warning {
+    background-color: $bg-warning;
+    #{$root}__content {
+      color: $warning;
+    }
+  }
+
+  &--error {
+    background-color: $bg-danger;
+    #{$root}__content {
+      color: $danger;
+    }
+  }
+}
+
+// override toastify basic styles, only use component styling
+.Toastify {
+  &__toast {
+    min-height: 48px !important;
+    padding: 0 !important;
+    &-body {
+      padding: 0 !important;
+    }
+    &-container {
+      max-width: 340px;
+      width: 100%;
+    }
+  }
+}
+
+@keyframes pullIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.pullIn {
+  animation-name: pullIn;
+  animation-timing-function: cubic-bezier(0.17, 0.66, 0.08, 0.95);
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.fadeOutRight {
+  animation-name: fadeOutRight;
+}
+
+@media only screen and (max-width: 480px) {
+  .Toastify {
+    &__toast-container {
+      padding: 4px !important;
+      left: auto !important;
+      right: 0 !important;
+      max-width: 100%;
+    }
+  }
+}

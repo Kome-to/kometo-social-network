@@ -1,0 +1,23 @@
+.suggest-card {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  padding: 20px;
+  &__avatar {
+    width: 70px;
+    height: 70px;
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+  }
+
+  &__name {
+    font-size: 20px;
+  }
+}

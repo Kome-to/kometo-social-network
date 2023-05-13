@@ -1,0 +1,47 @@
+@import '../../../../common/sass/variables';
+
+.left-bar {
+  width: 240px;
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__count {
+    background-color: blue;
+    width: max-content;
+    padding: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    right: 20px;
+  }
+  &__card {
+    padding: 10px 20px;
+
+    &-title {
+      font-size: 16px;
+      color: $color-grey;
+      margin-bottom: 10px;
+    }
+
+    &-item {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 2px 10px;
+      svg {
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+/* Primary Palette */
+$color-primary: #65a339;
+$color-primary-d15: #558a30;
+$color-primary-l20: #81c253;
+$color-primary-l80: #dfefd4;
+
+$color-white: #ffffff;
+$color-ghost-white: #f6f8fe;
+
+$color-black: #212121;
+$color-black-l20: #4d4d4d;
+$color-black-l80: #d2d2d2;
+
+$color-black-d15: #{mix(#212121, #000, 85%)};
+$color-black-l80: #{mix(#212121, #fff, 20%)};
+$color-black-l95: #{mix(#212121, #fff, 5%)};
+
+$color-gunmetal: #2e2d4a;
+$color-gunmetal-d20: #24243b;
+
+/* Secondary Palette */
+$color-red: #cc3427;
+$color-red-l20: #dc574b;
+
+$color-red-d15: #{mix(#cc3427, #000, 85%)};
+$color-red-l80: #{mix(#cc3427, #fff, 20%)};
+$color-red-l95: #{mix(#cc3427, #fff, 5%)};
+
+$color-grey: #bbc0d1;
+$color-grey-l20: #c8ccda;
+$color-grey-l80: #4d4d4d;
+$color-grey-l95: #fbfbfc;
+
+$color-grey-d15: #{mix(#bbc0d1, #000, 85%)};
+$color-grey-d20: #{mix(#bbc0d1, #000, 80%)};
+$color-grey-l80: #{mix(#bbc0d1, #fff, 20%)};
+$color-grey-l95: #{mix(#bbc0d1, #fff, 5%)};
+
+$color-yellow: #F9CC59;
+$color-blue: #9CB7FE;
+$color-blue-l80: #{mix(#9CB7FE, #fff, 20%)};;
+
+$color-highlight: #0078d4;
+$color-highlight-d15: #{mix(#0078d4, #000, 85%)};
+$color-highlight-l80: #{mix(#0078d4, #fff, 20%)};
+$color-highlight-l95: #{mix(#0078d4, #fff, 5%)};
+
+$drop-shadow: 1px 2px 6px rgba($color-black, 0.2) !default;
+$shadow-alt: 0 10px 16px 0 rgba(0, 0, 0, 0.18);
+
+/* Semantic color */
+$success: #065f46;
+$success-secondary: #4a9631;
+$info: #1e40af;
+$warning: #92400e;
+$warning-secondary: #f59e0b;
+$danger: #b91c1c;
+
+/*Background semantic color*/
+$bg-success: #d1fae5;
+$bg-success-secondary: #dbf0cb;
+$bg-info: #dbeafe;
+$bg-warning: #fef3c7;
+$bg-danger: #fee2e2;
+$bg-monochrome: #9e9e9e;
+
+:root {
+  --font-content: 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --max-container-width: 1850px;
+
+  /* Spacing */
+  --sp-1: 2px;
+  --sp-2: 4px;
+  --sp-3: 8px;
+  --sp-4: 12px;
+  --sp-5: 16px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 64px;
+  --sp-11: 96px;
+  --sp-12: 160px;
+}
+
+$color-ui-bg: #f3f6f8;
+$color-ui-elements: #d8dee4;
+$color-main: #252b40;
+$color-placeholder: #80838d;
+
+$font-family: 'Proxima Nova';
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;

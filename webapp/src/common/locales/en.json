@@ -1,0 +1,8 @@
+{
+  "title": "Welcome to react using react-i18next",
+  "common.title.dashboard": "Dashboard",
+  "common.text.username": "Username",
+  "common.text.email": "Email",
+  "common.text.password": "Password",
+  "common.text.confirmationPassword": "Confirm password"
+}

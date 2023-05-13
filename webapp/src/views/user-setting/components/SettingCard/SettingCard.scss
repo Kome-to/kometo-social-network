@@ -1,0 +1,51 @@
+@import './../../../../common/sass/variables.scss';
+
+.user-setting {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  margin-left: 260px;
+  padding-bottom: 30px;
+  &__card {
+    width: 70%;
+    padding: 20px 40px;
+  }
+
+  &__header {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 30px;
+  }
+
+  .setting-category {
+    margin-top: 20px;
+
+    &__header {
+      font-size: 16px;
+      color: $color-grey;
+    }
+    &__option {
+      margin-top: 20px;
+      display: flex;
+      cursor: pointer;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $color-grey-l80;
+      padding: 10px;
+      &--no-border {
+        border: none;
+      }
+      &-content {
+        font-size: 18px;
+        display: flex;
+        justify-content: left;
+        gap: 20px;
+        align-items: center;
+        svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}

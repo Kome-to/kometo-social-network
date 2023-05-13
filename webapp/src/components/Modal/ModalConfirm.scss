@@ -1,0 +1,33 @@
+@import '../../common/sass/variables';
+
+.modal-confirm {
+  $root: &;
+
+  &__container {
+    margin-bottom: var(--sp-5);
+  }
+
+  &__content {
+    padding: var(--sp-5) 0;
+  }
+
+  &__wrapper-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    color: $color-white;
+    padding: 16px 40px 15px;
+    &--confirm {
+      background: $color-red;
+      border-color: $color-red;
+      &:hover,
+      &:focus {
+        background: $color-red-d15;
+        border-color: $color-red-d15;
+      }
+    }
+  }
+}

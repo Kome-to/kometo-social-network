@@ -1,0 +1,14 @@
+@import '../../common/sass/variables';
+
+.content-block {
+    padding: var(--sp-5);
+
+    &__heading {
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    &__body {
+        padding-top: 24px;
+    }
+}

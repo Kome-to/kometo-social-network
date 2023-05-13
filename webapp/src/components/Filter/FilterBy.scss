@@ -1,0 +1,27 @@
+@import '../../common/sass/variables';
+
+.filter-actions {
+  display: flex;
+  flex-direction: row;
+  color: $color-black;
+
+  &__label {
+    margin-right: var(--sp-6);
+    font-weight: bold;
+  }
+
+  &__options {
+    font-weight: bold;
+    color: $color-grey-d20;
+
+    cursor: pointer;
+    padding: var(--sp-2) var(--sp-4);
+
+    &--selected {
+      font-weight: normal;
+      background-color: $color-grey;
+      color: $color-grey-l95;
+      border-radius: 6px;
+    }
+  }
+}

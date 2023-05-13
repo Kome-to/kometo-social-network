@@ -1,0 +1,117 @@
+@import '../../common/sass/variables';
+
+$selectOptionHeight: 40px;
+.select-option {
+  position: relative;
+  height: $selectOptionHeight;
+  padding: var(--sp-3) var(--sp-5);
+  cursor: default;
+  user-select: none;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $color-grey-l80;
+  }
+  &--has-icon {
+    padding-left: calc(var(--sp-5) + 16px + var(--sp-5));
+  }
+  &__text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: $color-main;
+    .select__trigger & {
+      font-weight: 600;
+    }
+    .select-option--placeholder & {
+      color: $color-placeholder;
+      font-weight: 400;
+      font-style: italic;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: var(--sp-5);
+    border-radius: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.select {
+  $root: &;
+  $focus: #{$root}--has-focus;
+  position: relative;
+  color: $color-black;
+  &__label {
+    display: inline-block;
+    position: relative;
+    font-size: 12px;
+    line-height: 100%;
+    padding-bottom: var(--sp-3);
+    #{$root}--label-uppercase & {
+      text-transform: uppercase;
+    }
+  }
+  &__trigger {
+    position: relative;
+    height: 50px;
+    background-color: $color-ui-bg;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: var(--sp-5);
+    border-radius: 2px;
+    color: $color-main;
+    &::after {
+      content: '';
+      height: 2px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background-color: $color-ui-elements;
+      width: 0;
+      opacity: 0;
+      transition: all ease-in-out 0.25s;
+      border-radius: 0 0 2px 2px;
+    }
+    &:hover,
+    &:focus,
+    #{$focus} & {
+      &::after {
+        opacity: 1;
+        width: 100%;
+      }
+    }
+    &:focus,
+    #{$focus} & {
+      &::after {
+        background-color: $color-highlight;
+      }
+    }
+    #{$focus} & {
+      #{$root}__trigger-arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &__trigger-arrow {
+    // workaround for space between in IE11, see https://stackoverflow.com/questions/32991051
+    order: 1;
+  }
+  &__menu {
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+    overflow: auto;
+    box-shadow: $shadow-alt;
+    background-color: $color-white;
+  }
+}

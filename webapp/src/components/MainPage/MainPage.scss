@@ -1,0 +1,11 @@
+@import '../../common/sass/variables';
+
+.main-page {
+  padding: 0 var(--sp-8);
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    width: 100vw;
+  }
+}

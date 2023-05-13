@@ -1,0 +1,87 @@
+@import '../../../../../common/sass/variables.scss';
+
+.post {
+  margin-top: 16px;
+  padding: 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-size: 18px;
+    }
+
+    &-user {
+      &-time {
+        font-size: 14px;
+        color: $color-grey;
+      }
+    }
+
+    &-avatar {
+      width: 40px;
+      height: 40px;
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+    }
+
+    &-option {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $color-grey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__content {
+    margin: 20px 0px;
+    &-media {
+      width: 100%;
+      img,
+      video {
+        width: 100%;
+        max-height: 500px;
+        object-fit: contain;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    padding-bottom: 10px;
+    &-react {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 20px;
+    }
+    &-like,
+    &-share,
+    &-comment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
