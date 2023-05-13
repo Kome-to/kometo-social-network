@@ -48,8 +48,10 @@ const LoginView: React.FC = () => {
       case routes.SIGN_UP:
         return Yup.object().shape({
           email: Yup.string().required('Field is required').email('Invalid email address'),
+          firstName: Yup.string().required('Field is required'),
+          lastName: Yup.string().required('Field is required'),
           password: Yup.string().required('Field is required'),
-          confirmPassword: Yup.string().oneOf([Yup.ref('password'), 'Password must match']),
+          confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Password must match'),
         });
       default:
         return null;
@@ -90,7 +92,7 @@ const LoginView: React.FC = () => {
             {() => (
               <Form className="login__form">
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="email" placeholder="Your Email Address" />
-                <FastField wrapperClass="login__input" component={FormikTextInput} name="password" placeholder="Password" />
+                <FastField wrapperClass="login__input" component={FormikTextInput} type="password" name="password" placeholder="Password" />
                 <div className="login__option">
                   <Link className="login__forgot" to="/">
                     Forgot your password
@@ -115,7 +117,7 @@ const LoginView: React.FC = () => {
         <div className="login">
           <div className="login__title">Create your account</div>
           <Formik
-            initialValues={{ email: '', password: '', name: '', confirmPassword: '' }}
+            initialValues={{ email: '', password: '', firstName: '', lastName: '', confirmPassword: '' }}
             onSubmit={submitForm}
             validationSchema={loginSchema}
             validateOnBlur
@@ -123,10 +125,17 @@ const LoginView: React.FC = () => {
           >
             {() => (
               <Form className="login__form">
-                <FastField wrapperClass="login__input" component={FormikTextInput} name="name" placeholder="Your Name" />
+                <FastField wrapperClass="login__input" component={FormikTextInput} name="firstName" placeholder="First Name" />
+                <FastField wrapperClass="login__input" component={FormikTextInput} name="lastName" placeholder="Last Name" />
                 <FastField wrapperClass="login__input" component={FormikTextInput} name="email" placeholder="Your Email Address" />
-                <FastField wrapperClass="login__input" component={FormikTextInput} name="password" placeholder="Password" />
-                <FastField wrapperClass="login__input" component={FormikTextInput} name="confirmPassword" placeholder="Confirm Password" />
+                <FastField wrapperClass="login__input" component={FormikTextInput} type="password" name="password" placeholder="Password" />
+                <FastField
+                  wrapperClass="login__input"
+                  component={FormikTextInput}
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                />
                 <Button type="submit" className="login__button" dataId="button">
                   Register
                 </Button>

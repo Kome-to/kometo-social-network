@@ -1,36 +1,31 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { FastField, Form, Formik } from 'formik';
 import { routes } from '../../common/utils/routes';
+import { userActions } from '../../services/controllers/user/UserActions';
+import { selectCurrentUser } from '../../services/controllers/user/UserSelector';
+import Icon, { ICONS } from '../Icon/Icon';
 import { FormikTextInput } from '../TextInput/TextInput';
 import './NavBar.scss';
-import Icon, { ICONS, IconSize } from '../Icon/Icon';
 
 const NavBar = (): React.ReactElement => {
   const { pathname } = useLocation();
-
+  const currentUser = useSelector(selectCurrentUser) as any;
   const dispatch = useDispatch();
   const history = useHistory();
 
   const hiddenNavbarRouter = [routes.LOGIN, routes.SIGN_UP];
 
-  const link = useMemo(() => {
-    switch (pathname) {
-      case '/login':
-        return { title: 'Don’t have an account yet? ', path: 'Sign up →', to: '/sign-up' };
-      case '/sign-up':
-        return { title: ' Already have an account? ', path: 'Log in →', to: '/login' };
-      case '/request-reset-password':
-        return { title: ' Go back to ', path: 'Log in →', to: '/login' };
-      default:
-        return { title: '', path: '', to: '/' };
-    }
-  }, [pathname]);
-
   const classes = classNames('navbar', {});
+
+  useEffect(() => {
+    if (routes.LOGIN !== pathname) {
+      dispatch(userActions.getMe());
+    }
+  }, []);
 
   return !hiddenNavbarRouter.includes(pathname) ? (
     <nav className={classes}>
@@ -86,10 +81,15 @@ const NavBar = (): React.ReactElement => {
               history.push(routes.USER_SETTING);
             }}
           >
-            <img
-              src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A"
-              alt=""
-            />
+            {currentUser && (
+              <img
+                src={
+                  currentUser?.avatar ||
+                  'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A'
+                }
+                alt=""
+              />
+            )}
           </div>
         </div>
       </div>

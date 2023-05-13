@@ -25,7 +25,6 @@ const storage = (storageFolder: string) =>
 
 const multerUpload = () =>
   multer({
-    // dest: "assets",
     storage: storage("assets"),
   });
 

@@ -7,6 +7,8 @@ import { generateToken } from "../common/lib/passports";
 class AuthControllers {
   public signUp = async (req, res) => {
     const { body } = req;
+    console.log("1231");
+
     const existsEmail = await UserModel.findOne({
       where: { email: body.email },
     });
@@ -17,7 +19,8 @@ class AuthControllers {
 
     const hastPassword = Bcrypt.generateHashPassword(body.password);
     const newUser = {
-      name: body.name,
+      firstName: body.firstName,
+      lastName: body.lastName,
       email: body.email,
       password: hastPassword,
       confirmPassword: body.password,

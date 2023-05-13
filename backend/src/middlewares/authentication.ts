@@ -3,9 +3,6 @@ import passport from "passport";
 
 import UnauthorizedError from "../common/errors/types/UnauthorizedError";
 import messages from "../common/messages";
-import { ExtractJwt } from "passport-jwt";
-import { verify } from "jsonwebtoken";
-import env from "../../config/env";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("jwt", {}, async (error, data, info) => {

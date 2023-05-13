@@ -11,11 +11,17 @@ const Post: React.FC<{ data: any }> = ({ data }) => {
       <div className="post__header">
         <div className="post__header-sub">
           <div className="post__header-avatar">
-            <img src={data.avatar} alt="" />
+            <img
+              src={
+                data.avatar ||
+                'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A'
+              }
+              alt=""
+            />
           </div>
           <div className="post__header-user">
-            <div className="post__header-user-name">{data.userName}</div>
-            <div className="post__header-user-time">{dayjs(data.time).format('DD MMMM YYYY')}</div>
+            <div className="post__header-user-name">{`${data.firstName} ${data.lastName}`}</div>
+            <div className="post__header-user-time">{dayjs(data.updatedAt).format('DD MMMM YYYY')}</div>
           </div>
         </div>
         <div className="post__header-option">
@@ -25,7 +31,14 @@ const Post: React.FC<{ data: any }> = ({ data }) => {
       <div className="post__container">
         <div className="post__content">{data.content}</div>
         <div className="post__content-media">
-          <img src={data.image} alt="" />
+          {/\w+\.(jpg|jpeg|png|gif|bmp)$/.test(data.file) ? (
+            <img src={data.file} alt="" />
+          ) : (
+            // eslint-disable-next-line
+            <video controls className="">
+              <source src={data.file} type="video/mp4" />
+            </video>
+          )}
         </div>
       </div>
       <div className="post__footer">

@@ -27,6 +27,11 @@ ApiClient.interceptors.response.use(
     return response.data;
   },
   (error: any) => {
+    if (error.response.data.message === 'Token invalid') {
+      storage.removeToken({ path: '/' });
+      window.location.reload();
+    }
+
     return Promise.reject(error);
   },
 );

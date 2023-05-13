@@ -9,6 +9,7 @@ export const routes = {
 
   USER_SETTING: '/me/setting',
   USER_SETTING_CHANGE_PASSWORD: '/me/setting/change-password',
+  USER_SETTING_INFO: '/me/setting/info',
 };
 
 export interface RouteGuard {

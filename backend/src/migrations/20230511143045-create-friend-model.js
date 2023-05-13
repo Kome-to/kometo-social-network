@@ -22,6 +22,7 @@ module.exports = {
           key: "id",
         },
         field: "from_user",
+        onDelete: 'CASCADE',
       },
       toUser: {
         type: Sequelize.UUID,
@@ -33,12 +34,13 @@ module.exports = {
           key: "id",
         },
         field: "to_user",
+        onDelete: 'CASCADE',
       },
       isAccept: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false,
-        field: "isAccept",
+        field: "is_accept",
       },
       createdAt: {
         allowNull: false,
@@ -62,6 +64,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("user");
+    await queryInterface.dropTable("friend");
   },
 };

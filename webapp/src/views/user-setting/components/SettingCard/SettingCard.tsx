@@ -46,6 +46,10 @@ const Category: React.FC<{ data: any }> = ({ data }) => {
     if (name === 'Password') {
       history.push(routes.USER_SETTING_CHANGE_PASSWORD);
     }
+
+    if (name === 'Account Information') {
+      history.push(routes.USER_SETTING_INFO);
+    }
   };
   return (
     <div className="setting-category">

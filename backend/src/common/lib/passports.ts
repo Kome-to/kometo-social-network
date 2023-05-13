@@ -30,7 +30,7 @@ export function passportConfiguration(passport) {
           cb(null, { user });
         }
       } else {
-        cb(new Error("Something wrong in token"), false);
+        cb(new ForbiddenError("Token invalid"), false);
       }
     })
   );

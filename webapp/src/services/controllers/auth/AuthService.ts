@@ -23,8 +23,8 @@ export default class AuthService {
     return data;
   };
 
-  signUp = async ({ name, email, password, confirmPassword }: any): Promise<AxiosResponse> => {
-    const { data } = await this.axios.post('auth/sign-up', { name, email, password, confirmPassword });
+  signUp = async ({ firstName, lastName, email, password, confirmPassword }: any): Promise<AxiosResponse> => {
+    const { data } = await this.axios.post('auth/sign-up', { firstName, lastName, email, password, confirmPassword });
     return data;
   };
 

@@ -1,119 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { get } from 'lodash';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { notify } from '../../../../common/utils/notify';
 import { routes } from '../../../../common/utils/routes';
 import Button from '../../../../components/Button/Button';
 import Card from '../../../../components/Card/Card';
 import Icon, { ICONS, IconSize } from '../../../../components/Icon/Icon';
+import TextArea from '../../../../components/TextArea/TextArea';
+import api from '../../../../services/apiServices';
+import { selectCurrentUser } from '../../../../services/controllers/user/UserSelector';
 import OnlineBar from '../OnlineBar/OnlineBar';
 import './NewsFeed.scss';
 import Post from './Post/Post';
 
 const NewsFeed: React.FC = () => {
   const history = useHistory();
-  const postList = [
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-    {
-      userName: 'Surfiya Zakir',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      image: 'http://sociala.uitheme.net/assets/images/t-10.jpg',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus. ',
-      likes: 999,
-      comments: 999,
-      time: new Date(),
-    },
-  ];
+  const [file, setFile] = useState<File | null>(null);
+  const currentUser = useSelector(selectCurrentUser) as any;
+  const [createPostContent, setCreatePostContent] = useState('');
+  const [postList, setPostList] = useState<any[]>([]);
+
+  const getPost = async () => {
+    try {
+      const data = await api.user.getPost();
+      console.log(data);
+      setPostList([...data]);
+    } catch (error) {
+      const message = get(error, 'data.response.message');
+      notify.error(message);
+    }
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
+
   const suggestPages = [
     {
       image:
@@ -219,9 +144,25 @@ const NewsFeed: React.FC = () => {
     },
   ];
 
-  const addMedia = () => {
-    alert('12');
+  const addMedia = (e: any) => {
+    if (e.target.files.length && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
   };
+
+  const onPost = async () => {
+    try {
+      await api.user.createPost({ createPostContent, file });
+      setFile(null);
+      setCreatePostContent('');
+      notify.success('Post successfully');
+      await getPost();
+    } catch (error) {
+      const message = get(error, 'response.data.message');
+      notify.error(message);
+    }
+  };
+
   return (
     <div className="news-feed">
       <div className="news-feed__wrapper">
@@ -274,12 +215,35 @@ const NewsFeed: React.FC = () => {
               <div className="news-feed__create-header-text">Create post</div>
             </div>
             <div className="news-feed__create-text">
-              <img
-                className="news-feed__create-avatar"
-                src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A"
-                alt=""
+              {currentUser && (
+                <img
+                  className="news-feed__create-avatar"
+                  src={
+                    currentUser.avatar ||
+                    'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A'
+                  }
+                  alt=""
+                />
+              )}
+              <TextArea
+                value={createPostContent}
+                wrapperClass="news-feed__create-text-input"
+                name="createPostContent"
+                id=""
+                placeholder="What's on your mind ?"
+                onChange={(e) => {
+                  setCreatePostContent(e.target.value);
+                }}
               />
-              <textarea name="content" id="" placeholder="What's on your mind ?" />
+            </div>
+            <div className="news-feed__create-image-wrapper">
+              {file && file.type.includes('image') && <img className="news-feed__create-image" src={URL.createObjectURL(file)} alt="" />}
+              {file && file.type.includes('video') && (
+                // eslint-disable-next-line
+                <video controls className="news-feed__create-image">
+                  <source src={URL.createObjectURL(file)} type="video/mp4" />
+                </video>
+              )}
             </div>
             <div className="news-feed__create-footer">
               <div className="news-feed__create-option">
@@ -290,12 +254,26 @@ const NewsFeed: React.FC = () => {
                 <div className="news-feed__create-option-item">
                   <Icon className="navbar__icon" name={ICONS.PHOTO} size={IconSize.SM} />
                   <div>Photo/Video</div>
-                  <input type="file" className="news-feed__create-option-media" onChange={addMedia} />
+                  <input type="file" accept="image/* video/*" className="news-feed__create-option-media" onChange={addMedia} />
                 </div>
               </div>
-              <Button type="submit" className="news-feed__create-more" dataId="button">
-                Post
-              </Button>
+              <div className="news-feed__create-actions">
+                {file && (
+                  <Button
+                    onClick={() => {
+                      setFile(null);
+                    }}
+                    type="submit"
+                    className="news-feed__create-remove news-feed__create-more"
+                    dataId="button"
+                  >
+                    Remove Photo/Video
+                  </Button>
+                )}
+                <Button onClick={onPost} type="submit" className="news-feed__create-more" dataId="button">
+                  Post
+                </Button>
+              </div>
             </div>
           </Card>
           <div>

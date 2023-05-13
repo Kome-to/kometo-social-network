@@ -1,25 +1,6 @@
-import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BaseState } from '../../../common/enum';
-import { UserDTO } from '../../types/apiType';
-import { userActions } from './UserActions';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface UserState extends BaseState<UserDTO> {
-  current?: string;
-}
-
-export const userAdapter = createEntityAdapter<UserDTO>();
-
-const initialState: UserState = {
-  list: {
-    ...userAdapter.getInitialState(),
-    totalCount: 0,
-    pageInfo: {
-      hasNextPage: false,
-      hasPreviousPage: false,
-      startCursor: null,
-      endCursor: null,
-    },
-  },
+const initialState = {
   current: undefined,
 };
 
@@ -27,14 +8,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurrentUser: (state, action: PayloadAction<string>) => {
+    setCurrentUser: (state, action: PayloadAction<any>) => {
       state.current = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(userActions.getDetailSuccess, (state, action) => {
-      userAdapter.upsertMany(state.list, action.payload.user);
-    });
   },
 });
 

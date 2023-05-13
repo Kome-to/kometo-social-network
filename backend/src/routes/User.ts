@@ -1,19 +1,36 @@
 import express from "express";
 import wrapper from "../common/helpers/wrapper";
 import UserControllers from "../controllers/UserControllers";
-import fileUpload from "./../middlewares/file-upload";
-import multer from "multer";
 import authentication from "../middlewares/authentication";
+import fileUpload from "./../middlewares/file-upload";
+import validators from "../validators/User";
+import { validate } from "express-validation";
 
 const router = express.Router();
 
 const fileUploadSingle = fileUpload.multerUpload().single("file");
 
 router.post(
-  "/upload",
+  "/post",
+  [authentication],
+  validate(validators.createPost),
+  [fileUploadSingle],
+  wrapper(UserControllers.createPost)
+);
+
+router.get("/post", [authentication], wrapper(UserControllers.getPost));
+router.get(
+  "/suggest-friend",
+  [authentication],
+  wrapper(UserControllers.getSuggestFriends)
+);
+router.get("/me", [authentication], wrapper(UserControllers.getMe));
+router.post(
+  "/me",
   [authentication],
   [fileUploadSingle],
-  wrapper(UserControllers.test)
+  validate(validators.updateMe),
+  wrapper(UserControllers.updateMe)
 );
 
 export default router;

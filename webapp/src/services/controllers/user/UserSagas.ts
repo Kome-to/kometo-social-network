@@ -1,27 +1,24 @@
+import { AxiosResponse } from 'axios';
 import { get } from 'lodash';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import api from '../../apiServices';
-import { userEntity } from '../schemas';
-import { userActions } from './UserActions';
-import { UserDTO, UserNormalized } from '../../types/apiType';
 import { notify } from '../../../common/utils/notify';
-import { normalized } from '../../../common/utils/normalized';
+import api from '../../apiServices';
+import { userActions } from './UserActions';
 import { setCurrentUser } from './UserSlice';
-import { CommonGenerator } from '../../types/common';
 
-function* getUserDetailSaga(): CommonGenerator<UserDTO, any> {
+function* getMeSaga(action: any) {
   try {
-    const data = yield call(api.user.getUserDetail);
+    const data = (yield call(api.user.getMe)) as AxiosResponse;
     if (data) {
-      yield put(userActions.getDetailSuccess(normalized<UserNormalized>(data, userEntity)));
-      yield put(setCurrentUser(data.id));
+      yield put(setCurrentUser(data));
     }
-  } catch (error) {
-    const message = get(error, 'response.data.message');
+  } catch (e) {
+    const message = get(e, 'response.data.response');
     notify.error(message);
+    yield put(setCurrentUser(undefined));
   }
 }
 
 export function* userSaga() {
-  yield all([takeLatest(userActions.getDetail, getUserDetailSaga)]);
+  yield all([takeLatest(userActions.getMe, getMeSaga)]);
 }

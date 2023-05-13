@@ -236,6 +236,23 @@
     width: 100%;
     padding: 0 30px;
 
+    &-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    &-image {
+      &-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+      height: 200px;
+      // width: 200px;
+      max-width: 100%;
+      margin: 10px 0px;
+      object-fit: contain;
+    }
+
     &-header {
       padding: 12px 0px;
       display: flex;
@@ -261,6 +278,10 @@
       display: flex;
       justify-content: center;
       position: relative;
+      &-input {
+        width: 100%;
+        height: 100px;
+      }
       textarea {
         width: 100%;
         height: 100px;
@@ -318,6 +339,11 @@
       background-color: black;
       letter-spacing: 2px;
       justify-content: center;
+    }
+
+    &-remove {
+      width: max-content;
+      background-color: $color-red;
     }
   }
 }
