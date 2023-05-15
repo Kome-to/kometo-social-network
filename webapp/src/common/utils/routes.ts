@@ -8,6 +8,7 @@ export const routes = {
   SUGGEST_FRIEND: '/suggest-friend',
 
   USER_SETTING: '/me/setting',
+  CHAT: '/chat',
   USER_SETTING_CHANGE_PASSWORD: '/me/setting/change-password',
   USER_SETTING_INFO: '/me/setting/info',
 };

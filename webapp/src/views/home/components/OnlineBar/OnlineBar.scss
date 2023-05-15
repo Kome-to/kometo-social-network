@@ -1,17 +1,18 @@
 @import '../../../../common/sass/variables.scss';
 
 .online-bar {
-  // position: absolute;
-  // right: 10px;
-  // top: 10px;
-  // width: 250px;
+  position: fixed;
+  left: 10px;
+  top: 80px;
+  width: 270px;
+  ////////////////////
   margin-bottom: 10px;
-
   &__card {
     padding: 16px 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: calc(100vh - 100px);
   }
 
   &__title {

@@ -26,4 +26,20 @@ export default {
       action: Joi.string().required().valid("accept", "request", "cancel"),
     }),
   },
+
+  postEvent: {
+    body: Joi.object({
+      postId: Joi.string().required(),
+      eventType: Joi.string().valid("LIKE", "COMMENT", "SHARE").required(),
+      content: Joi.string().allow("", null),
+      fileName: Joi.string(),
+    }),
+  },
+
+  deleteEvent: {
+    body: Joi.object({
+      postId: Joi.string().required(),
+      eventType: Joi.string().valid("LIKE", "COMMENT", "SHARE").required(),
+    }),
+  },
 };

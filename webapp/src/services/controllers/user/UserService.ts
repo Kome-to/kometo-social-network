@@ -8,6 +8,11 @@ export default class UserService {
     return data;
   };
 
+  getMedia = async () => {
+    const { data } = await this.axios.get('user/media');
+    return data;
+  };
+
   updateMe = async ({
     firstName,
     lastName,
@@ -59,8 +64,8 @@ export default class UserService {
     return data;
   };
 
-  getSuggestFriend = async () => {
-    const { data } = await this.axios.get('user/suggest-friend');
+  getSuggestFriend = async (key?: string) => {
+    const { data } = await this.axios.get('user/suggest-friend', { params: { key } });
     return data;
   };
 
@@ -79,6 +84,23 @@ export default class UserService {
 
   getPost = async () => {
     const { data } = await this.axios.get('user/post');
+    return data;
+  };
+
+  addEventPost = async ({ postId, eventType, content, file }: any) => {
+    const bodyFormData = new FormData();
+    if (file) {
+      bodyFormData.append('file', file);
+    }
+    bodyFormData.append('postId', postId);
+    bodyFormData.append('eventType', eventType);
+    bodyFormData.append('content', content);
+    const { data } = await this.axios.post('user/post-event', bodyFormData);
+    return data;
+  };
+
+  deleteEventPost = async ({ postId, eventType }: any) => {
+    const { data } = await this.axios.delete('user/post-event', { data: { postId, eventType } });
     return data;
   };
 }

@@ -3,9 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: {
   current: any | undefined;
   suggestFriendList: any[];
+  currentChat: any | undefined;
+  friends: any[];
+  chatSession: any[];
 } = {
   current: undefined,
   suggestFriendList: [],
+  currentChat: undefined,
+  chatSession: [],
+  friends: [],
 };
 
 export const userSlice = createSlice({
@@ -18,9 +24,18 @@ export const userSlice = createSlice({
     setSuggestFriendList: (state, action: PayloadAction<any>) => {
       state.suggestFriendList = [...action.payload];
     },
+    setCurrentChat: (state, action: PayloadAction<any>) => {
+      state.currentChat = action.payload;
+    },
+    setFriends: (state, action: PayloadAction<any>) => {
+      state.friends = [...action.payload];
+    },
+    setChatSession: (state, action: PayloadAction<any>) => {
+      state.chatSession = [...action.payload];
+    },
   },
 });
 
-export const { setCurrentUser, setSuggestFriendList } = userSlice.actions;
+export const { setCurrentUser, setSuggestFriendList, setCurrentChat, setFriends, setChatSession } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -72,6 +72,7 @@
     "express": "^4.18.2",
     "express-validation": "^4.1.0",
     "fs": "0.0.1-security",
+    "http": "0.0.1-security",
     "http-status": "^1.6.2",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
@@ -81,6 +82,7 @@
     "pg": "^8.10.0",
     "sequelize": "6.6.5",
     "sequelize-cli": "^6.2.0",
+    "socket.io": "^4.6.1",
     "uuid": "^8.3.2",
     "yarn": "^1.22.19"
   },

@@ -85,4 +85,69 @@
       }
     }
   }
+
+  &__comments {
+    padding: 10px 0;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+      &-content {
+        background-color: $color-grey-l80;
+        width: max-content;
+        height: max-content;
+        border-radius: 6px;
+        padding: 10px 20px;
+      }
+
+      &-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        div {
+          font-size: 16px;
+          font-weight: 800;
+        }
+
+        span {
+          font-size: 12px;
+        }
+      }
+
+      &-text {
+        font-size: 16px;
+        margin-top: 6px;
+        letter-spacing: 0.5px;
+      }
+    }
+    &-create {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid $color-grey;
+      padding-top: 20px;
+      .text-area {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      textarea {
+        height: 70px;
+        width: 95%;
+      }
+
+      &-img {
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
 }

@@ -9,6 +9,7 @@ class EventPostModel extends Model {
   declare postId: string;
   declare eventType: string;
   declare content: string;
+  declare userName: string;
   declare post: PostModel;
 }
 
@@ -29,6 +30,11 @@ EventPostModel.init(
       allowNull: false,
       onDelete: "CASCADE",
       field: "post_id",
+    },
+    eventType: {
+      type: DataTypes.ENUM,
+      values: ["LIKE", "COMMENT", "SHARE"],
+      field: "event_type",
     },
     content: {
       type: DataTypes.TEXT,

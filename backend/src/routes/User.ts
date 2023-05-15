@@ -31,6 +31,22 @@ router.post(
   wrapper(UserControllers.requestFriend)
 );
 
+router.delete(
+  "/post-event",
+  [authentication],
+  validate(validators.deleteEvent),
+  wrapper(UserControllers.deleteEvent)
+);
+
+router.post(
+  "/post-event",
+  [authentication],
+  [fileUploadSingle],
+  validate(validators.postEvent),
+  wrapper(UserControllers.postEvent)
+);
+
+router.get("/media", [authentication], wrapper(UserControllers.getMedia));
 router.get("/me", [authentication], wrapper(UserControllers.getMe));
 router.post(
   "/me",

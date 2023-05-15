@@ -9,35 +9,29 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
 
-    await queryInterface.createTable("event_post", {
+    await queryInterface.createTable("message", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      postId: {
-        type: Sequelize.UUID,
-        onDelete: "CASCADE",
-        references: {
-          model: { tableName: "post" },
-          key: "id",
-        },
-        field: "post_id",
-      },
-      user_id: {
+      toUser: {
         type: Sequelize.UUID,
         onDelete: "CASCADE",
         references: {
           model: { tableName: "user" },
           key: "id",
         },
-        field: "user_id",
+        field: "toUser",
       },
-      eventType: {
-        type: Sequelize.ENUM,
-        values: ["LIKE", "COMMENT", "SHARE"],
-        defaultValue: null,
-        field: "event_type",
+      fromUser: {
+        type: Sequelize.UUID,
+        onDelete: "CASCADE",
+        references: {
+          model: { tableName: "user" },
+          key: "id",
+        },
+        field: "fromUser",
       },
       content: {
         type: Sequelize.TEXT,
@@ -68,6 +62,6 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
 
-    await queryInterface.dropTable("event_post");
+    await queryInterface.dropTable("message");
   },
 };

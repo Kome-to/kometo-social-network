@@ -19,6 +19,8 @@ import Comment from './icons/comment.svg';
 import Like from './icons/like.svg';
 import Share from './icons/share.svg';
 import Option from './icons/option.svg';
+import Heart1 from './icons/heart-1.svg';
+import Heart2 from './icons/heart-2.svg';
 
 import './Icon.scss';
 
@@ -41,6 +43,8 @@ export const ICONS = {
   LIKE: Like.id,
   SHARE: Share.id,
   OPTION: Option.id,
+  HEART_1: Heart1.id,
+  HEART_2: Heart2.id,
 };
 
 export interface IconProps {

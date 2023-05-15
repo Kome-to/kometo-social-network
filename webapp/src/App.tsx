@@ -2,11 +2,12 @@ import { lazy } from '@loadable/component';
 import { ConnectedRouter } from 'connected-react-router';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Provider, useDispatch } from 'react-redux';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
+import { io } from 'socket.io-client';
 
 import { authGuard, routes, unAuthGuard } from './common/utils/routes';
 import store, { history, persistor } from './store';
@@ -15,6 +16,7 @@ import store, { history, persistor } from './store';
 import LoadingView from './components/Loading/LoadingModal';
 import NavBar from './components/Navbar/NavBar';
 import PrivateRoute from './components/Route/PrivateRoute';
+import { setSocket } from './services/controllers/common/CommonSlice';
 
 // Scenes
 const LoginView = lazy(() => import('./views/login/LoginView'));
@@ -23,6 +25,7 @@ const UserSettingView = lazy(() => import('./views/user-setting/UserSettingView'
 const ChangePasswordView = lazy(() => import('./views/change-password/ChangePasswordView'));
 const AccountDetailView = lazy(() => import('./views/account-detail/AccountDetailView'));
 const SuggestFriendView = lazy(() => import('./views/suggest-friend-view/SuggestFriendView'));
+const ChatView = lazy(() => import('./views/chat/ChatView'));
 
 dayjs.extend(localizedFormat);
 
@@ -43,6 +46,7 @@ function App() {
                   <PrivateRoute exact path={routes.USER_SETTING} component={UserSettingView} guards={[authGuard]} />
                   <PrivateRoute exact path={routes.USER_SETTING_CHANGE_PASSWORD} component={ChangePasswordView} guards={[authGuard]} />
                   <PrivateRoute exact path={routes.USER_SETTING_INFO} component={AccountDetailView} guards={[authGuard]} />
+                  <PrivateRoute exact path={routes.CHAT} component={ChatView} guards={[authGuard]} />
 
                   <PrivateRoute exact path={routes.SUGGEST_FRIEND} component={SuggestFriendView} guards={[authGuard]} />
 
