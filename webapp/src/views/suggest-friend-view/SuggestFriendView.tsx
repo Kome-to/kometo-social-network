@@ -12,24 +12,14 @@ import LeftBar from '../home/components/LeftBar/LeftBar';
 import SuggestCard from './SuggestCard/SuggestCard';
 import './SuggestFriendView.scss';
 import { setSuggestFriendList } from '../../services/controllers/user/UserSlice';
+import { userActions } from '../../services/controllers/user/UserActions';
 
 const SuggestFriendView: React.FC = () => {
   const listSuggests = useSelector(selectSuggestFriendsList);
   const dispatch = useDispatch();
 
-  const getSuggestFriends = async () => {
-    try {
-      const list = await api.user.getSuggestFriend();
-
-      dispatch(setSuggestFriendList([...list]));
-    } catch (error) {
-      const message = get(error, 'response.data.message');
-      notify.error(message);
-    }
-  };
-
   useEffect(() => {
-    getSuggestFriends();
+    dispatch(userActions.getSuggestFriend());
   }, []);
 
   return (

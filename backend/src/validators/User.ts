@@ -7,6 +7,14 @@ export default {
     }),
   },
 
+  createMessage: {
+    body: Joi.object({
+      content: Joi.string(),
+      userId: Joi.string(),
+      file: Joi.string().allow(null, ""),
+    }),
+  },
+
   updateMe: {
     body: Joi.object({
       firstName: Joi.string(),

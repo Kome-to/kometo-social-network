@@ -7,6 +7,7 @@ import FriendModel from "../models/Friend";
 import UserModel from "../models/User";
 import withTransaction from "./../common/hooks/withTransaction";
 import PostModel from "./../models/Post";
+import MessageModel from "./../models/Message";
 import EventPostModel from "../models/EventPost";
 import fs from "fs";
 
@@ -239,7 +240,7 @@ class UserControllers {
       } else {
         const friendIds = list
           .filter((friend) => {
-           return friend.isAccept;
+            return friend.isAccept;
           })
           .map((friend) =>
             friend.toUser === user.id ? friend.fromUser : friend.toUser
@@ -367,6 +368,59 @@ class UserControllers {
       res,
       files.map((file) => `${env.baseApiUrl}/file/${user.id}/${file}`)
     );
+  };
+
+  public createMessage = async (req, res) => {
+    const { content, userId, fileName } = req.body;
+
+    const existUser = await UserModel.findOne({ where: { id: userId } });
+
+    if (!existUser) {
+      throw new BadRequestError("User not exist");
+    }
+
+    await withTransaction(async (trans) => {
+      await MessageModel.create({
+        toUser: req.user.id,
+        fromUser: userId,
+        content,
+        file: fileName,
+      });
+    });
+    response.success(res, req.body);
+  };
+
+  public getMessage = async (req, res) => {
+    const { userId } = req.query;
+
+    const existUser = await UserModel.findOne({ where: { id: userId } });
+
+    if (!existUser) {
+      throw new BadRequestError("User not exist");
+    }
+
+    let messages = [];
+    await withTransaction(async (trans) => {
+      const data = await MessageModel.findAll({
+        where: {
+          [Op.or]: [
+            { toUser: userId, fromUser: req.user.id },
+            { toUser: req.user.id, fromUser: userId },
+          ],
+        },
+      });
+
+      messages.push(
+        ...data.map((item) => ({
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          content: item.content,
+          isOwner: item.toUser === req.user.id,
+        }))
+      );
+    });
+
+    response.success(res, messages);
   };
 }
 

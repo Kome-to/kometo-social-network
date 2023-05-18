@@ -26,6 +26,7 @@
       width: 50px;
       object-fit: contain;
       border-radius: 50%;
+      border: 1px solid $color-grey-l20;
     }
   }
 
@@ -42,6 +43,12 @@
     gap: 10px;
     span {
       color: $color-grey-l20;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    div {
+      font-size: 18px;
+      font-weight: 700;
     }
   }
 
@@ -49,7 +56,7 @@
     max-width: 70%;
     padding: 10px 20px;
     background-color: #d4e2fa;
-    margin-top: 2px;
+    margin-top: 10px;
     margin-bottom: 20px;
     border-radius: 20px;
     font-size: 16px;
@@ -110,4 +117,6 @@
       height: 56%;
     }
   }
+
+  
 }

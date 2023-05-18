@@ -1,0 +1,103 @@
+@import './../../common/sass/variables.scss';
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  margin-left: 260px;
+  padding-bottom: 30px;
+
+  &__create {
+    margin-top: 0px !important;
+  }
+
+  &__header {
+    width: 80%;
+    overflow: hidden;
+  }
+
+  &__bg {
+    width: 100%;
+    height: 300px;
+    background-image: url('https://pbs.twimg.com/profile_banners/3344085139/1661977707/1500x500');
+  }
+
+  &__main-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__left {
+    margin-top: -100px;
+    padding-left: 30px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  &__right {
+    display: flex;
+    min-height: 100px;
+    align-items: center;
+    gap: 10px;
+    margin-right: 20px;
+  }
+
+  &__add-friend {
+    height: 50px;
+  }
+
+  &__header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    background-color: $color-grey-l80;
+    border-radius: 6px;
+  }
+
+  &__sub {
+    // padding-bottom: 10px;
+    padding-left: 20px;
+  }
+
+  &__name {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__email {
+    font-size: 16px;
+    color: $color-grey;
+  }
+
+  &__avatar {
+    width: 120px;
+    height: 120px;
+    img {
+      border: 1px solid $color-grey-l80;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  &__content {
+    width: 80%;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    &-left {
+      width: 28%;
+    }
+
+    &-right {
+      width: 72%;
+    }
+  }
+}

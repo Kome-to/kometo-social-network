@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { FastField, Form, Formik } from 'formik';
-import { io } from 'socket.io-client';
 import { routes } from '../../common/utils/routes';
-import { setSocket } from '../../services/controllers/common/CommonSlice';
 import { userActions } from '../../services/controllers/user/UserActions';
 import { selectCurrentUser } from '../../services/controllers/user/UserSelector';
 import Icon, { ICONS } from '../Icon/Icon';
@@ -29,18 +27,7 @@ const NavBar = (): React.ReactElement => {
     }
   }, []);
 
-  useEffect(() => {
-    if (currentUser) {
-      const socket = io('http://localhost:4044') as any;
-      socket.emit('join', currentUser.id);
-
-      dispatch(setSocket({ socket }));
-      return () => socket.close();
-    }
-    return () => {};
-  }, [currentUser]);
-
-  return !hiddenNavbarRouter.includes(pathname) ? (
+  return !hiddenNavbarRouter.includes(pathname) && !pathname.includes('/call/') ? (
     <nav className={classes}>
       <div
         onClick={() => {

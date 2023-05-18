@@ -1,18 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
+import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
+import { notify } from '../../common/utils/notify';
+import Audios from '../../components/Audio/audio';
 import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import Icon, { ICONS } from '../../components/Icon/Icon';
 import TextArea from '../../components/TextArea/TextArea';
+import api from '../../services/apiServices';
 import { selectSocket } from '../../services/controllers/common/CommonSelector';
-import { selectChatSession, selectCurrentChat } from '../../services/controllers/user/UserSelector';
+import { selectChatSession, selectCurrentChat, selectCurrentUser } from '../../services/controllers/user/UserSelector';
 import { setChatSession } from '../../services/controllers/user/UserSlice';
 import { handleTime } from '../home/components/NewsFeed/Post/utils';
 import OnlineBar from '../home/components/OnlineBar/OnlineBar';
+import CallModal from './CallModal/CallModal';
 import './ChatView.scss';
-import Audios from '../../components/Audio/audio';
 
 const ChatView: React.FC = () => {
   const socket = useSelector(selectSocket);
@@ -23,12 +27,30 @@ const ChatView: React.FC = () => {
   const [messaging, setMessaging] = useState<any>();
   const scrollEnd = useRef<any>(null);
   const audioPlayer = useRef<any>(null);
-
-  const sendMessage = () => {
+  const currentUser = useSelector(selectCurrentUser);
+  const [isCall, setIsCall] = useState(false);
+  const [from, setFrom] = useState(null);
+  const sendMessage = async () => {
     if (socket) {
-      socket.emit('sendMessage', { userId: currentChat.id, message });
-      setMessage('');
-      setMessaging({ message, isOwner: true });
+      try {
+        socket.emit('sendMessage', { userId: currentChat.id, message });
+        setMessage('');
+        setMessaging({ message, isOwner: true });
+        await api.user.createMessage({ userId: currentChat.id, message });
+      } catch (e) {
+        const message = get(e, 'response.data.message');
+        notify.error(message);
+      }
+    }
+  };
+
+  const getMessages = async () => {
+    try {
+      const data = await api.user.getMessages(currentChat.id);
+      dispatch(setChatSession([...data.map((item: any) => ({ message: item.content, isOwner: item.isOwner, ...item }))]));
+    } catch (e) {
+      const message = get(e, 'response.data.message');
+      notify.error(message);
     }
   };
 
@@ -44,7 +66,7 @@ const ChatView: React.FC = () => {
   useEffect(() => {
     const end = scrollEnd.current;
     if (end) {
-      end.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+      end.scrollIntoView({ block: 'end', inline: 'nearest' });
     }
   }, [chatSession]);
 
@@ -52,7 +74,17 @@ const ChatView: React.FC = () => {
     socket?.on('receiveMessage', (message) => {
       setMessaging({ message, isOwner: false });
     });
+
+    socket?.on('receiveCall', (userId) => {
+      setFrom(userId);
+    });
   }, [socket]);
+
+  useEffect(() => {
+    if (currentChat) {
+      getMessages();
+    }
+  }, [currentChat]);
 
   return (
     <div>
@@ -70,14 +102,15 @@ const ChatView: React.FC = () => {
                   <div className={styles}>
                     <div className="chat__header">
                       <div className="chat__image">
-                        <img
-                          src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A"
-                          alt=""
-                        />
+                        <img src={currentChat.avatar} alt="" />
                       </div>
                       <div>
-                        <div>Chu Duc Anh</div>
-                        <span>{handleTime(new Date())}</span>
+                        <div>
+                          {chat.isOwner
+                            ? `${currentUser.firstName} ${currentUser.lastName}`
+                            : `${currentChat.firstName} ${currentChat.lastName}`}
+                        </div>
+                        <span>{handleTime(chat.updatedAt)}</span>
                       </div>
                     </div>
                     <div className="chat__message">{chat.message}</div>
@@ -88,7 +121,12 @@ const ChatView: React.FC = () => {
             </div>
             <div className="chat__input">
               <div className="chat__option">
-                <div className="chat__call">
+                <div
+                  onClick={() => {
+                    setIsCall(true);
+                  }}
+                  className="chat__call"
+                >
                   <Icon name={ICONS.LIVE} />
                 </div>
               </div>
@@ -111,6 +149,8 @@ const ChatView: React.FC = () => {
           </Card>
         </div>
       )}
+      {currentChat && isCall && <CallModal action={setIsCall} from={null} socket={socket} />}
+      {currentChat && from && <CallModal action={setFrom} from={from} socket={socket} />}
     </div>
   );
 };

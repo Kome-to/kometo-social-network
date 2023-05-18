@@ -47,6 +47,13 @@ router.post(
 );
 
 router.get("/media", [authentication], wrapper(UserControllers.getMedia));
+router.post(
+  "/message",
+  [authentication],
+  validate(validators.createMessage),
+  wrapper(UserControllers.createMessage)
+);
+router.get("/message", [authentication], wrapper(UserControllers.getMessage));
 router.get("/me", [authentication], wrapper(UserControllers.getMe));
 router.post(
   "/me",

@@ -15,29 +15,21 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      toUser: {
+      userId: {
         type: Sequelize.UUID,
         onDelete: "CASCADE",
         references: {
           model: { tableName: "user" },
           key: "id",
         },
-        field: "to_user",
+        field: "user_id",
       },
-      fromUser: {
-        type: Sequelize.UUID,
-        onDelete: "CASCADE",
-        references: {
-          model: { tableName: "user" },
-          key: "id",
-        },
-        field: "from_user",
+      event: {
+        type: Sequelize.ENUM,
+        values: ["CHAT", "COMMENT", "SHARE", "LIKE"],
       },
-      content: {
+      metadata: {
         type: Sequelize.TEXT,
-      },
-      file: {
-        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -62,6 +54,6 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
 
-    await queryInterface.dropTable("message");
+    await queryInterface.dropTable("notify");
   },
 };

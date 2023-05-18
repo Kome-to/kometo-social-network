@@ -39,7 +39,13 @@ const OnlineBar: React.FC = () => {
             const key = contact.firstName + i;
             const classes = classNames('online-bar__child', { 'online-bar__child--chat': currentChat.id === contact.id });
             return (
-              <div key={key} className={classes}>
+              <div
+                onClick={() => {
+                  dispatch(setCurrentChat(contact));
+                }}
+                key={key}
+                className={classes}
+              >
                 <div className="online-bar__child-image">
                   <img src={contact.avatar} alt="" />
                 </div>

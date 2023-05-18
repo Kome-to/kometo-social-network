@@ -82,6 +82,24 @@ export default class UserService {
     return data;
   };
 
+  getMessages = async (userId: any) => {
+    const { data } = await this.axios.get('user/message', { params: { userId } });
+    return data;
+  };
+
+  createMessage = async ({ userId, message, file }: any) => {
+    const bodyFormData = new FormData();
+    // if (file) {
+    //   bodyFormData.append('file', file);
+    // }
+    // bodyFormData.append('userId', userId);
+    // bodyFormData.append('content', message);
+    // console.log(userId, message, file, bodyFormData);
+
+    const { data } = await this.axios.post('user/message', { userId, content: message });
+    return data;
+  };
+
   getPost = async () => {
     const { data } = await this.axios.get('user/post');
     return data;

@@ -67,48 +67,49 @@ const VirtualizedTable: React.FC<VirtualizedTableProps> = ({
   const isRowLoaded = ({ index }: Index) => !loading || index < list.length;
 
   return (
-    <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={loadMoreRows} rowCount={list.length}>
-      {({ onRowsRendered, registerChild }) => (
-        <AutoSizer style={{ minHeight: 300 }}>
-          {({ width, height }) => (
-            <Table
-              ref={registerChild}
-              disableHeader={disableHeader}
-              headerHeight={headerHeight}
-              height={height}
-              gridStyle={{
-                direction: 'inherit',
-              }}
-              onRowsRendered={onRowsRendered}
-              noRowsRenderer={noRowsRenderer}
-              className={tableClasses}
-              overscanRowCount={overscanRowCount}
-              rowHeight={rowHeight}
-              rowGetter={rowGetter}
-              rowCount={list.length}
-              scrollToIndex={scrollToIndex}
-              sort={sort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              width={width}
-            >
-              {columns.map((column) => (
-                <Column
-                  label={column.label}
-                  dataKey={column.dataKey}
-                  width={column.width}
-                  flexGrow={column.flexGrow}
-                  headerRenderer={VirtualizedTableHeader}
-                  cellRenderer={
-                    component ? (props: TableCellProps) => <VirtualizedTableCell component={component} {...props} /> : undefined
-                  }
-                />
-              ))}
-            </Table>
-          )}
-        </AutoSizer>
-      )}
-    </InfiniteLoader>
+    // <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={loadMoreRows} rowCount={list.length}>
+    //   {({ onRowsRendered, registerChild }) => (
+    //     <AutoSizer style={{ minHeight: 300 }}>
+    //       {({ width, height }) => (
+    //         <Table
+    //           ref={registerChild}
+    //           disableHeader={disableHeader}
+    //           headerHeight={headerHeight}
+    //           height={height}
+    //           gridStyle={{
+    //             direction: 'inherit',
+    //           }}
+    //           onRowsRendered={onRowsRendered}
+    //           noRowsRenderer={noRowsRenderer}
+    //           className={tableClasses}
+    //           overscanRowCount={overscanRowCount}
+    //           rowHeight={rowHeight}
+    //           rowGetter={rowGetter}
+    //           rowCount={list.length}
+    //           scrollToIndex={scrollToIndex}
+    //           sort={sort}
+    //           sortBy={sortBy}
+    //           sortDirection={sortDirection}
+    //           width={width}
+    //         >
+    //           {columns.map((column) => (
+    //             <Column
+    //               label={column.label}
+    //               dataKey={column.dataKey}
+    //               width={column.width}
+    //               flexGrow={column.flexGrow}
+    //               headerRenderer={VirtualizedTableHeader}
+    //               cellRenderer={
+    //                 component ? (props: TableCellProps) => <VirtualizedTableCell component={component} {...props} /> : undefined
+    //               }
+    //             />
+    //           ))}
+    //         </Table>
+    //       )}
+    //     </AutoSizer>
+    //   )}
+    // </InfiniteLoader>
+    <div> </div>
   );
 };
 

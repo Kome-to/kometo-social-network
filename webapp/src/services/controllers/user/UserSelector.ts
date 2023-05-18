@@ -8,3 +8,4 @@ export const selectSuggestFriendsList = createSelector(selectUser, (user) => use
 export const selectFriends = createSelector(selectUser, (user) => user.friends);
 export const selectCurrentChat = createSelector(selectUser, (user) => user.currentChat);
 export const selectChatSession = createSelector(selectUser, (user) => user.chatSession);
+export const selectPosts = createSelector(selectUser, (user) => user.posts);

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { get } from 'lodash';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { notify } from '../../../../../common/utils/notify';
 import Button from '../../../../../components/Button/Button';
 import Card from '../../../../../components/Card/Card';
@@ -11,25 +11,40 @@ import api from '../../../../../services/apiServices';
 import { selectCurrentUser } from '../../../../../services/controllers/user/UserSelector';
 import './Post.scss';
 import { handleTime } from './utils';
+import { selectSocket } from '../../../../../services/controllers/common/CommonSelector';
+import { userActions } from '../../../../../services/controllers/user/UserActions';
 
-const Post: React.FC<{ data: any; getPost: any }> = ({ data, getPost }) => {
+const Post: React.FC<{ data: any }> = ({ data }) => {
   const [isExpand, setIsExpand] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
   const [comment, setComment] = useState('');
+  const socket = useSelector(selectSocket);
+  const dispatch = useDispatch();
 
   const onEvent = async (eventType: any, isAdd: boolean, content?: string) => {
     try {
       if (isAdd) {
         await api.user.addEventPost({ postId: data.id, eventType, content });
+        if (socket) {
+          socket.emit('event', { event: eventType, metadata: content });
+        }
       } else {
         await api.user.deleteEventPost({ postId: data.id, eventType });
       }
-      await getPost();
+      dispatch(userActions.getPost());
     } catch (e) {
       const message = get(e, 'response.data.message');
       notify.error(message);
     }
   };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('receiveEvent', (event) => {
+        console.log(event);
+      });
+    }
+  }, []);
 
   return (
     <Card className="post">
@@ -55,16 +70,18 @@ const Post: React.FC<{ data: any; getPost: any }> = ({ data, getPost }) => {
       </div>
       <div className="post__container">
         <div className="post__content">{data.content}</div>
-        <div className="post__content-media">
-          {/\w+\.(jpg|jpeg|png|gif|bmp)$/.test(data.file) ? (
-            <img src={data.file} alt="" />
-          ) : (
-            // eslint-disable-next-line
-            <video controls className="">
-              <source src={data.file} type="video/mp4" />
-            </video>
-          )}
-        </div>
+        {!data.file.includes('/null') && (
+          <div className="post__content-media">
+            {/\w+\.(jpg|jpeg|png|gif|bmp|jfif)$/.test(data.file) ? (
+              <img src={data.file} alt="" />
+            ) : (
+              // eslint-disable-next-line
+              <video controls className="">
+                <source src={data.file} type="video/mp4" />
+              </video>
+            )}
+          </div>
+        )}
       </div>
       <div className="post__footer">
         <div className="post__footer-react">
