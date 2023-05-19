@@ -19,7 +19,9 @@ const OnlineBar: React.FC = () => {
     try {
       const data = await api.user.getSuggestFriend('friend');
       dispatch(setFriends([...data]));
-      dispatch(setCurrentChat(data[0]));
+      if (!currentChat) {
+        dispatch(setCurrentChat(data[0]));
+      }
     } catch (e) {
       const message = get(e, 'response.data.message');
       notify.error(message);

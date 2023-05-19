@@ -72,11 +72,14 @@ const CallModal: React.FC<{ socket: any; action: any; from: any }> = ({ socket, 
     });
 
     socket.on('handleAcceptCall', (userId: string) => {
-      history.push(
-        generatePath(routes.CALL, {
+      history.push({
+        pathname: generatePath(routes.CALL, {
           id: currentUser.id,
         }),
-      );
+        state: {
+          currentChat,
+        },
+      });
     });
   }, []);
 

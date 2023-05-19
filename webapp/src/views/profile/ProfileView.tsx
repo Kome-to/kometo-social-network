@@ -40,7 +40,7 @@ const ProfileView: React.FC = () => {
                 <div className="profile__email">ducanhnd2306@gmail.com</div>
               </div>
             </div>
-            <div className="profile__right">
+            {/* <div className="profile__right">
               <Button className="profile__add-friend">ADD FRIEND</Button>
               <div className="profile__header-icon">
                 <Icon name={ICONS.HEART_1} />
@@ -48,18 +48,18 @@ const ProfileView: React.FC = () => {
               <div className="profile__header-icon">
                 <Icon name={ICONS.HEART_1} />
               </div>
-            </div>
+            </div> */}
           </div>
         </Card>
         <div className="profile__content">
           <div className="profile__content-left">
-            <Card>
-              <div>
+            <Card className="profile__content-left-card">
+              <div className="profile__content-left-about">
                 <div>About</div>
-                <div>
+                <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam debitis voluptas perferendis. Libero aperiam perspiciatis
                   error minus, soluta dicta quam ipsa voluptates, praesentium commodi explicabo porro, provident possimus culpa laboriosam.
-                </div>
+                </p>
               </div>
               <div>0918977451</div>
               <div>Nam Dinh, Viet Nam</div>
