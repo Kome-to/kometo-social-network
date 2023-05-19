@@ -93,7 +93,8 @@ const AccountDetailView: React.FC = () => {
                   phone: Yup.string()
                     .min(10, 'Phone must be at least 10 numbers')
                     .max(13, 'Phone must be at most 13 numbers')
-                    .matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/i, 'Invalid phone number'),
+                    .matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/i, 'Invalid phone number')
+                    .nullable(),
                 })}
                 onSubmit={onSubmit}
                 initialValues={{

@@ -1,121 +1,63 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import './OnlineBar.scss';
+import classNames from 'classnames';
+import { get } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { notify } from '../../../../common/utils/notify';
 import Card from '../../../../components/Card/Card';
+import api from '../../../../services/apiServices';
+import { selectCurrentChat, selectFriends } from '../../../../services/controllers/user/UserSelector';
+import { setCurrentChat, setFriends } from '../../../../services/controllers/user/UserSlice';
+import './OnlineBar.scss';
 
 const OnlineBar: React.FC = () => {
-  const contacts = [
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-  ];
+  const friends = useSelector(selectFriends);
+  const dispatch = useDispatch();
+  const currentChat = useSelector(selectCurrentChat);
 
-  const groups = [
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-  ];
+  const getFriend = async () => {
+    try {
+      const data = await api.user.getSuggestFriend('friend');
+      dispatch(setFriends([...data]));
+      if (!currentChat) {
+        dispatch(setCurrentChat(data[0]));
+      }
+    } catch (e) {
+      const message = get(e, 'response.data.message');
+      notify.error(message);
+    }
+  };
 
-  const pages = [
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-    {
-      name: 'Chu Duc Anh',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-      status: 'online',
-    },
-  ];
+  useEffect(() => {
+    getFriend();
+  }, []);
 
   return (
     <div className="online-bar">
       <Card className="online-bar__card">
         <div className="online-bar__item">
-          <div className="online-bar__title">CONTACTS</div>
-          {contacts.map((contact, i) => {
-            const key = contact.name + i;
+          <div className="online-bar__title">FRIENDS</div>
+          {friends.map((contact, i) => {
+            const key = contact.firstName + i;
+            const classes = classNames('online-bar__child', { 'online-bar__child--chat': currentChat.id === contact.id });
             return (
-              <div key={key} className="online-bar__child">
+              <div
+                onClick={() => {
+                  dispatch(setCurrentChat(contact));
+                }}
+                key={key}
+                className={classes}
+              >
                 <div className="online-bar__child-image">
                   <img src={contact.avatar} alt="" />
                 </div>
-                <div className="online-bar__child-name">{contact.name}</div>
+                <div className="online-bar__child-name">{`${contact.firstName} ${contact.lastName}`}</div>
                 <div className="online-bar__child-status" />
               </div>
             );
           })}
         </div>
-        <div className="online-bar__item">
+        {/* <div className="online-bar__item">
           <div className="online-bar__title">GROUPS</div>
           {groups.map((contact, i) => {
             const key = contact.name + i;
@@ -144,7 +86,7 @@ const OnlineBar: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </Card>
     </div>
   );

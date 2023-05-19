@@ -21,8 +21,8 @@ module.exports = {
           },
           key: "id",
         },
-        field: "from_user",
         onDelete: 'CASCADE',
+        field: "from_user",
       },
       toUser: {
         type: Sequelize.UUID,
@@ -33,8 +33,8 @@ module.exports = {
           },
           key: "id",
         },
-        field: "to_user",
         onDelete: 'CASCADE',
+        field: "to_user",
       },
       isAccept: {
         type: Sequelize.BOOLEAN,

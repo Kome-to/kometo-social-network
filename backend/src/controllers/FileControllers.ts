@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import path from "path";
-import env from "../../config/env";
 
 class FileController {
   public getFile = async (req: Request, res: Response) => {

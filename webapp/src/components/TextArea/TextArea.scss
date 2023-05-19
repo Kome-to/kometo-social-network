@@ -1,6 +1,9 @@
 @import '../../common/sass/variables';
 
 .text-area {
+  textarea {
+    resize: none;
+  }
   &__error {
     color: $color-red-l20;
     font-size: 12px;

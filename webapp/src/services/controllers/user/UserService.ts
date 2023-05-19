@@ -8,6 +8,11 @@ export default class UserService {
     return data;
   };
 
+  getMedia = async () => {
+    const { data } = await this.axios.get('user/media');
+    return data;
+  };
+
   updateMe = async ({
     firstName,
     lastName,
@@ -59,8 +64,13 @@ export default class UserService {
     return data;
   };
 
-  getUseSuggestion = async (searchKey: string) => {
-    const { data } = await this.axios.get('users/autosuggest', { params: { searchKey } });
+  getSuggestFriend = async (key?: string) => {
+    const { data } = await this.axios.get('user/suggest-friend', { params: { key } });
+    return data;
+  };
+
+  requestFriend = async ({ id, action }: any) => {
+    const { data } = await this.axios.post('user/request-friend', { id, action });
     return data;
   };
 
@@ -72,8 +82,43 @@ export default class UserService {
     return data;
   };
 
+  getMessages = async (userId: any) => {
+    const { data } = await this.axios.get('user/message', { params: { userId } });
+    return data;
+  };
+
+  createMessage = async ({ userId, message, file }: any) => {
+    const bodyFormData = new FormData();
+    // if (file) {
+    //   bodyFormData.append('file', file);
+    // }
+    // bodyFormData.append('userId', userId);
+    // bodyFormData.append('content', message);
+    // console.log(userId, message, file, bodyFormData);
+
+    const { data } = await this.axios.post('user/message', { userId, content: message });
+    return data;
+  };
+
   getPost = async () => {
     const { data } = await this.axios.get('user/post');
+    return data;
+  };
+
+  addEventPost = async ({ postId, eventType, content, file }: any) => {
+    const bodyFormData = new FormData();
+    if (file) {
+      bodyFormData.append('file', file);
+    }
+    bodyFormData.append('postId', postId);
+    bodyFormData.append('eventType', eventType);
+    bodyFormData.append('content', content);
+    const { data } = await this.axios.post('user/post-event', bodyFormData);
+    return data;
+  };
+
+  deleteEventPost = async ({ postId, eventType }: any) => {
+    const { data } = await this.axios.delete('user/post-event', { data: { postId, eventType } });
     return data;
   };
 }

@@ -15,7 +15,8 @@
   &__logo {
     font-size: 30px;
     font-weight: 800;
-    color:  $color-highlight;
+    color: $color-highlight;
+    cursor: pointer;
   }
 
   &__link {
@@ -88,11 +89,15 @@
     display: flex;
     gap: 30px;
     align-items: center;
+    div {
+      cursor: pointer;
+    }
   }
 
   &__icon {
     width: 24px !important;
     height: 24px !important;
+    cursor: pointer;
     &--no-border {
       width: 30px !important;
       height: 30px !important;

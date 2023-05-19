@@ -24,6 +24,36 @@ router.get(
   [authentication],
   wrapper(UserControllers.getSuggestFriends)
 );
+router.post(
+  "/request-friend",
+  [authentication],
+  validate(validators.requestFriend),
+  wrapper(UserControllers.requestFriend)
+);
+
+router.delete(
+  "/post-event",
+  [authentication],
+  validate(validators.deleteEvent),
+  wrapper(UserControllers.deleteEvent)
+);
+
+router.post(
+  "/post-event",
+  [authentication],
+  [fileUploadSingle],
+  validate(validators.postEvent),
+  wrapper(UserControllers.postEvent)
+);
+
+router.get("/media", [authentication], wrapper(UserControllers.getMedia));
+router.post(
+  "/message",
+  [authentication],
+  validate(validators.createMessage),
+  wrapper(UserControllers.createMessage)
+);
+router.get("/message", [authentication], wrapper(UserControllers.getMessage));
 router.get("/me", [authentication], wrapper(UserControllers.getMe));
 router.post(
   "/me",

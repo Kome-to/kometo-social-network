@@ -15,6 +15,13 @@ import CreatePost from './icons/create-post.svg';
 import Photo from './icons/photo.svg';
 import LeftArrow from './icons/left-arrow.svg';
 import AngleRight from './icons/angle-right.svg';
+import Comment from './icons/comment.svg';
+import Like from './icons/like.svg';
+import Share from './icons/share.svg';
+import Option from './icons/option.svg';
+import Heart1 from './icons/heart-1.svg';
+import Heart2 from './icons/heart-2.svg';
+import EndCall from './icons/end-call.svg';
 
 import './Icon.scss';
 
@@ -33,6 +40,13 @@ export const ICONS = {
   PHOTO: Photo.id,
   LEFT_ARROW: LeftArrow.id,
   ANGLE_RIGHT: AngleRight.id,
+  COMMENT: Comment.id,
+  LIKE: Like.id,
+  SHARE: Share.id,
+  OPTION: Option.id,
+  HEART_1: Heart1.id,
+  HEART_2: Heart2.id,
+  END_CALL: EndCall.id,
 };
 
 export interface IconProps {

@@ -11,7 +11,7 @@ import userSlice from './services/controllers/user/UserSlice';
 
 export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware, routerMiddleware(history)];
+const middleware = [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), sagaMiddleware, routerMiddleware(history)];
 
 const persistConfig = {
   key: 'root',

@@ -27,9 +27,14 @@ const NavBar = (): React.ReactElement => {
     }
   }, []);
 
-  return !hiddenNavbarRouter.includes(pathname) ? (
+  return !hiddenNavbarRouter.includes(pathname) && !pathname.includes('/call/') ? (
     <nav className={classes}>
-      <div className="navbar__logo">
+      <div
+        onClick={() => {
+          history.push(routes.DEFAULT);
+        }}
+        className="navbar__logo"
+      >
         <div>Kometo</div>
       </div>
       <div className="navbar__main">
@@ -71,7 +76,11 @@ const NavBar = (): React.ReactElement => {
             <div>
               <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.NOTIFY} />
             </div>
-            <div>
+            <div
+              onClick={() => {
+                history.push(routes.CHAT);
+              }}
+            >
               <Icon className="navbar__icon navbar__icon--no-border" name={ICONS.CHAT} />
             </div>
           </div>

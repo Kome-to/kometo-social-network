@@ -2,6 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../common/lib/Sequelize";
 import { v4 as uuidv4 } from "uuid";
 import UserModel from "./User";
+import EventPostModel from "./EventPost";
 
 class PostModel extends Model {
   declare id: string;
@@ -9,6 +10,7 @@ class PostModel extends Model {
   declare content: string;
   declare file: string;
   declare post_user: UserModel;
+  declare events: EventPostModel;
 }
 
 PostModel.init(

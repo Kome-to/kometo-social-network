@@ -1,17 +1,18 @@
 @import '../../../../common/sass/variables.scss';
 
 .online-bar {
-  // position: absolute;
-  // right: 10px;
-  // top: 10px;
-  // width: 250px;
+  position: fixed;
+  left: 10px;
+  top: 80px;
+  width: 270px;
+  ////////////////////
   margin-bottom: 10px;
-
   &__card {
-    padding: 16px 30px;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: calc(100vh - 100px);
   }
 
   &__title {
@@ -20,7 +21,13 @@
   }
 
   &__child {
+    &--chat {
+      background-color: $color-grey-l80;
+    }
     display: flex;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 4px;
     align-items: center;
     gap: 16px;
     margin-top: 10px;
@@ -43,7 +50,7 @@
       height: 10px;
       border-radius: 50%;
       position: absolute;
-      right: 20px;
+      right: 30px;
       background-color: aquamarine;
     }
   }
