@@ -6,6 +6,7 @@ import { storage } from '../../../common/utils/storage';
 import api from '../../apiServices';
 import { authActions } from './AuthActions';
 import { signUpSuccess } from './AuthSlice';
+import { userActions } from '../user/UserActions';
 
 function* loginSaga(action: AnyAction): any {
   try {

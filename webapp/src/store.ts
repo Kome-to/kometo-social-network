@@ -8,6 +8,7 @@ import rootSaga from './saga';
 import authSlice from './services/controllers/auth/AuthSlice';
 import CommonSlice from './services/controllers/common/CommonSlice';
 import userSlice from './services/controllers/user/UserSlice';
+import storySlice from './services/controllers/story/StorySlice';
 
 export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -26,6 +27,7 @@ const persistedReducer = persistReducer(
     auth: authSlice,
     common: CommonSlice,
     user: userSlice,
+    story: storySlice,
   }),
 );
 

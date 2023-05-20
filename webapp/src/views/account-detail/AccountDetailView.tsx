@@ -22,7 +22,7 @@ const AccountDetailView: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser) as any;
-  const [description, setDescription] = useState<any>(null);
+  const [description, setDescription] = useState<any>(undefined);
 
   const getUserDetail = () => {
     dispatch(userActions.getMe());
@@ -98,12 +98,12 @@ const AccountDetailView: React.FC = () => {
                 })}
                 onSubmit={onSubmit}
                 initialValues={{
-                  firstName: currentUser.firstName,
-                  lastName: currentUser.lastName,
-                  email: currentUser.email,
-                  phone: currentUser.phone,
-                  country: currentUser.country,
-                  address: currentUser.address,
+                  firstName: currentUser.firstName || '',
+                  lastName: currentUser.lastName || '',
+                  email: currentUser.email || '',
+                  phone: currentUser.phone || '',
+                  country: currentUser.country || '',
+                  address: currentUser.address || '',
                 }}
               >
                 {() => (
@@ -124,7 +124,7 @@ const AccountDetailView: React.FC = () => {
                         wrapperClass="account-detail__input account-detail__input--text-area"
                         label="Description"
                         name="description"
-                        value={currentUser.description}
+                        value={currentUser.description || ''}
                         onChange={(e) => {
                           setDescription(e.target.value);
                         }}

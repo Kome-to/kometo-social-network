@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import React, { useEffect } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 import { io } from 'socket.io-client';
@@ -18,6 +18,7 @@ import NavBar from './components/Navbar/NavBar';
 import PrivateRoute from './components/Route/PrivateRoute';
 import { setSocket } from './services/controllers/common/CommonSlice';
 import { selectCurrentUser } from './services/controllers/user/UserSelector';
+import { userActions } from './services/controllers/user/UserActions';
 
 // Scenes
 const LoginView = lazy(() => import('./views/login/LoginView'));

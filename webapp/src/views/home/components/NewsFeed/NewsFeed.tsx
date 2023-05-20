@@ -13,19 +13,20 @@ import Card from '../../../../components/Card/Card';
 import Icon, { ICONS, IconSize } from '../../../../components/Icon/Icon';
 import TextArea from '../../../../components/TextArea/TextArea';
 import api from '../../../../services/apiServices';
+import { storyActions } from '../../../../services/controllers/story/StoryActions';
 import { userActions } from '../../../../services/controllers/user/UserActions';
 import { selectCurrentUser, selectPosts, selectSuggestFriendsList } from '../../../../services/controllers/user/UserSelector';
 import './NewsFeed.scss';
 import Post from './Post/Post';
+import { selectStoryList } from '../../../../services/controllers/story/StorySelector';
+import StoryModal from './StoryModal';
 
 export const CreatePost: React.FC<any> = ({ action, className }) => {
   const history = useHistory();
   const [file, setFile] = useState<File | null>(null);
   const currentUser = useSelector(selectCurrentUser) as any;
   const [createPostContent, setCreatePostContent] = useState('');
-  const [postList, setPostList] = useState<any[]>([]);
-  const [photoList, setPhotoList] = useState<any[]>([]);
-  const listSuggests = useSelector(selectSuggestFriendsList);
+
   const dispatch = useDispatch();
 
   const addMedia = (e: any) => {
@@ -126,10 +127,12 @@ const NewsFeed: React.FC = () => {
   const history = useHistory();
   const [file, setFile] = useState<File | null>(null);
   const currentUser = useSelector(selectCurrentUser) as any;
-  const [createPostContent, setCreatePostContent] = useState('');
+  const storyList = useSelector(selectStoryList);
+  const [story, setStory] = useState<any | null>(null);
   const [photoList, setPhotoList] = useState<any[]>([]);
   const listSuggests = useSelector(selectSuggestFriendsList);
   const postList = useSelector(selectPosts);
+  const [displayStory, setDisplayStory] = useState<any>(null);
   const dispatch = useDispatch();
 
   const getMediaList = async () => {
@@ -144,6 +147,7 @@ const NewsFeed: React.FC = () => {
 
   useEffect(() => {
     dispatch(userActions.getPost());
+    dispatch(storyActions.getStory());
     getMediaList();
   }, []);
 
@@ -158,71 +162,16 @@ const NewsFeed: React.FC = () => {
     },
   ];
 
-  const stories = [
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-    {
-      name: 'Chu Duc Anh',
-      image:
-        'https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/345845172_1318193729041282_5090861027458963701_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=TbT3o-NgMhEAX_TLDjI&_nc_ht=scontent.fhan3-3.fna&oh=00_AfBLtfZOTIepHc6goGr5h3U-VTyRIN8w1pXqJGj5U0ARXw&oe=645F0C8E',
-      avatar:
-        'https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/281288893_3106909372904033_8827658247018456218_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=R7U5NiyiBTwAX9olBCA&_nc_ht=scontent.fhan5-2.fna&oh=00_AfD4irjN-l6geQzKI-fhLAyEIzgkw4jqLxexXXbESC18xQ&oe=645EC41A',
-    },
-  ];
+  const createStory = async (story: any) => {
+    try {
+      await api.story.createStory({ file: story });
+      dispatch(storyActions.getStory());
+      notify.success('Create story successfully');
+    } catch (e) {
+      const message = get(e, 'response.data.message');
+      notify.error(message);
+    }
+  };
 
   useEffect(() => {
     dispatch(userActions.getSuggestFriend());
@@ -245,6 +194,16 @@ const NewsFeed: React.FC = () => {
               <SwiperSlide className="news-feed__story-slide">
                 <Card>
                   <div className="news-feed__story-content news-feed__story-content-add">
+                    <input
+                      onChange={async (e: any) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setFile(e.target.files[0]);
+                          await createStory(e.target.files[0]);
+                        }
+                      }}
+                      type="file"
+                      accept="video/* "
+                    />
                     <div className="news-feed__story-user">
                       <div className="news-feed__story-user-plus">+</div>
                       <div className="news-feed__story-user-name news-feed__story-user-name--add">Add story</div>
@@ -252,18 +211,26 @@ const NewsFeed: React.FC = () => {
                   </div>
                 </Card>
               </SwiperSlide>
-              {stories.map((story, index) => {
-                const key = story.name + index;
+              {storyList.map((story, index) => {
+                const key = story.id + index;
                 return (
                   <SwiperSlide key={key} className="news-feed__story-slide">
                     <Card>
-                      <div className="news-feed__story-content">
-                        <img className="news-feed__story-slide-image" src={story.image} alt="" />
+                      <div
+                        onClick={() => {
+                          setDisplayStory(story);
+                        }}
+                        className="news-feed__story-content"
+                      >
+                        {/* eslint-disable-next-line */}
+                        <video className="news-feed__story-slide-image">
+                          <source src={story.file} type="video/mp4" />
+                        </video>
                         <div className="news-feed__story-user">
                           <div className="news-feed__story-user-image">
                             <img src={story.avatar} alt="" />
                           </div>
-                          <div className="news-feed__story-user-name">{story.name}</div>
+                          <div className="news-feed__story-user-name">{`${story.fistName} ${story.lastName}`}</div>
                         </div>
                       </div>
                     </Card>
@@ -275,7 +242,7 @@ const NewsFeed: React.FC = () => {
           <CreatePost action={async () => {}} />
           <div>
             {postList.map((postItem, i) => {
-              const key = postItem.userName + i;
+              const key = postItem.id + i;
               return <Post key={key} data={postItem} />;
             })}
           </div>
@@ -408,6 +375,7 @@ const NewsFeed: React.FC = () => {
           </Card>
         </div>
       </div>
+      <StoryModal data={displayStory} setDisplayStory={setDisplayStory} />
     </div>
   );
 };

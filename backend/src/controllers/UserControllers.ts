@@ -412,6 +412,7 @@ class UserControllers {
 
       messages.push(
         ...data.map((item) => ({
+          id: item.id,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
           content: item.content,

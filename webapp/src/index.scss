@@ -16,6 +16,10 @@ body {
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  .dialog-overlay {
+    background: rgba(5, 5, 5, 0.84);
+  }
 }
 
 #root {
@@ -30,7 +34,6 @@ body {
   width: 100vw;
   overflow: auto;
   background-color: $color-white;
-
 }
 
 .sidebar--collapsed .container {

@@ -99,7 +99,7 @@ const ChatView: React.FC = () => {
                   'chat__block--me': chat.isOwner,
                 });
                 return (
-                  <div className={styles}>
+                  <div key={chat.id} className={styles}>
                     <div className="chat__header">
                       <div className="chat__image">
                         <img src={currentChat.avatar} alt="" />

@@ -1,5 +1,6 @@
 import ApiClient from './apiClient';
 import AuthService from './controllers/auth/AuthService';
+import StoryService from './controllers/story/StoryService';
 import UserService from './controllers/user/UserService';
 
 export class ApiService {
@@ -7,9 +8,12 @@ export class ApiService {
 
   public user: UserService;
 
+  public story: StoryService;
+
   constructor() {
     this.auth = new AuthService(ApiClient);
     this.user = new UserService(ApiClient);
+    this.story = new StoryService(ApiClient);
   }
 }
 
